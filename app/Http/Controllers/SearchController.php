@@ -30,8 +30,8 @@ class SearchController extends Controller
 			->count();
 
         # Reload the users last_activity time
-		Auth::user()->reloadUpdateTime(Auth::user());
+		Auth::user()->reloadActivityTime();
 
-		return view('search.results')->with('users', $users)->with('user_count', $user_count); # Returns the home view: /resources/views/search/results.blade.php with the $users variable
+		return view('search.results')->with('users', $users)->with('user_count', $user_count); # Returns the home view: /resources/views/search/results.blade.php with the $users variable and $user_count
 	}
 }

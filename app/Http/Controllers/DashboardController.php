@@ -62,7 +62,7 @@ class DashboardController extends Controller
             'last_name' => $request->input('last_name'),
             'username' => $request->input('username'),
             'email' => $request->input('email'),
-            'gender' => $request->input('gender'),
+            'sex' => $request->input('gender'),
             'location' => $request->input('location'),
             'biography' => $request->input('biography'),
         ]);

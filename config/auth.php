@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'model' => ConnectU\User::class,
+    'model' => ConnectU\Models\User::class,
 
     /*
     |--------------------------------------------------------------------------

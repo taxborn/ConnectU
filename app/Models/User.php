@@ -1,7 +1,11 @@
 <?php
 
-namespace ConnectU;
+namespace ConnectU\Models;
 
+use DB;
+use Auth;
+use Carbon\Carbon;
+use ConnectU\Models\Status;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -85,6 +89,154 @@ class User extends Model implements AuthenticatableContract
 
     public function statuses()
     {
-        return $this->hasMany('ConnectU\Models\Status', 'user_id');
+        return $this->hasMany('ConnectU\Models\Status', 'user_id'); # Get the Users statuses by their ID
+    }
+
+    public function likes()
+    {
+        return $this->hasMany('ConnectU\Models\Like', 'user_id'); # Get the Users likes by their ID
+    }
+
+    public function friendsOfMine()
+    {
+        return $this->belongsToMany('ConnectU\Models\User', 'friends', 'user_id', 'friend_id'); # Get the friends of the user
+    }
+
+    public function friendsOf()
+    {
+        return $this->belongsToMany('ConnectU\Models\User', 'friends', 'friend_id', 'user_id'); # Get the Friends of a certain user
+    }
+
+    public function friends()
+    {
+        # Get the Users friends
+        return $this
+            ->friendsOfMine()
+            ->wherePivot('accepted', true)
+            ->get()
+            ->merge($this->friendOf()
+            ->where('accepted', true)
+            ->get())
+    }
+
+    public function friendRequests()
+    {
+        return $this->friendsOfMine()->wherePivot('accepted', false)->get(); # Get the users friends requests to them
+    }
+
+    public function friendRequestsPending()
+    {
+        return $this->friendsOf()->wherePivot('accepted', false)->get(); # The Users friend requests to a nother person
+    }
+
+    public function hasFriendRequestPending(User $user)
+    {
+        return (bool) $this->friendRequestsPending()->where('id', $user->id)->count(); # Check if the User has a friend request pending
+    }
+
+    public function hasFriendRequestReveived(User $user)
+    {
+        return (bool) $this->friendRequests()->where('id', $user->id)->count(); # Check if the User has received a friend request
+    }
+
+    public function addFriend(User $user)
+    {
+        $this->friendOf()->attach($user->id); # Add a friendship between the current user and the $user
+    }
+
+    public function removeFriend(User $user)
+    {
+        if (!Auth::user()->isFriendsWith($user)) {
+            # Check to see if the current user is actually friends with $user
+            return redirect()->back()->with('dang', 'You are not friends with' . $user->getFirstNameOrUsername());
+        }
+
+        if (!$user) {
+            # Check to see if a user is passed
+            return redirect()->back()->with('dang', 'That is not a real user!');
+        }
+
+        $this->friendOf()->detach($user->id);
+        $this->friendsOfMine()->detach($user->id);
+    }
+
+    public function acceptFriendRequest(User $user)
+    {
+        # Accept the pending friend request(update accepted to true)
+        $this->friendRequests()->where('id', $user->id)->first()->pivot->update([
+            'accepted' => true,
+        ]);
+    }
+
+    public function isFriendsWith(User $user)
+    {
+        # Check to see if the current user is friends with $user
+        return (bool) $this>friends()->where('id', $user->id)->count()
+    }
+
+    public function hasLikedStatus(Status $status)
+    {
+        # Check to see if the current user has already liked a status
+        return (bool) $status->likes()->where('user_id', $this->id)->count();
+    }
+
+    public function isAdmin(User $User)
+    {
+        # Check to see is the $user is an admin
+        if ($user->position === 'admin') {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isMod(User $user)
+    {
+        # Check to see if the $user is a moderator
+        if ($user->position === 'mod') {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isHelper(User $user)
+    {
+        # Check to see if the $user is a helper
+        if ($user->position === 'helper') {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isStaff(User $user)
+    {
+        # Check to see if the $user is staff
+        if ($user->position !== NULL || $user->position !== "") {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isModAndUp(User $user)
+    {
+        # Check to see if $user is a moderator or an administrator
+        if ($user->position === 'mod' || $user->position === 'admin') {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function reloadActivityTime()
+    {
+        # Get the current time and set it to $current_time
+        $current_time = Carbon::now()->subHours(5);
+
+        $this->update([
+            'last_activity' => $current_time,
+        ]);
     }
 }

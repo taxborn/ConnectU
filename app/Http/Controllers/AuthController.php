@@ -33,7 +33,7 @@ class AuthController extends Controller
 			'password' => bcrypt($request->input('password')), # User password encrypted in Bcrypt
 		]);
 
-		// Redirect to the home page with the message that their account has been created and they can log in
+		# Redirect to the home page with the message that their account has been created and they can log in
 		return redirect()
 			->route('home')
 			->with('succ', 'Your account has been created, and you can now sign in!');
@@ -41,41 +41,44 @@ class AuthController extends Controller
 
 	public function getSignin()
 	{
-		return view('auth.signin'); // Returns the signin view: /resources/views/auth/signin.blade.php
+		return view('auth.signin'); # Returns the signin view: /resources/views/auth/signin.blade.php
 	}
 
 	public function postSignin(Request $request)
 	{
-		// Validation to see if both fields are filled in
+		# Validation to see if both fields are filled in
 		$this->validate($request, [
-			'email'    => 'required',
-			'password' => 'required',
+			'email'    => 'required', # User email
+			'password' => 'required', # User password
 		]);
 
+        # Try the $field  as an email or username
 		$field = filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
     	$request->merge([$field => $request->input('email')]);
 
 		if(!Auth::attempt($request->only([$field, 'password']), $request->has('remember'))) {
-			// Return back with the message that they could not be signed in.
+			# Return back with the message that they could not be signed in.
 			return redirect()->back()->with('dang', 'Could not sign you in with those details.');
 		}
 
-		$ct = Carbon::now()->subHours(5);
+        # Get the current time and assign it to the variable $current_time
+		$current_time = Carbon::now()->subHours(5);
 
 		Auth::user()->update([
-			'ip'         => $_SERVER['REMOTE_ADDR'],
-			'last_login' => $ct,
+			'ip'         => $_SERVER['REMOTE_ADDR'], # Get the current IP and put it on the user
+			'last_activity' => $current_time, # Update the users last activity
 		]);
-		// Redirect home and with the message saying that they are signed in
+
+		# Redirect home and with the message saying that they are signed in
 		return redirect()->route('home')->with('succ', 'You are now signed in!');
 	}
 
 	public function getSignout()
 	{
-		// Logout the user
+		# Logout the user
 		Auth::logout();
 
-		// Return the user home with the message that they have been logged out
+		# Return the user home with the message that they have been logged out
 		return redirect()->route('home')->with('succ', 'You have been logged out.');
 	}
 }

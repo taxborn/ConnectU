@@ -26,8 +26,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'admin' => \ConnectU\Http\Middleware\Admin::class,
         'auth' => \ConnectU\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \ConnectU\Http\Middleware\RedirectIfAuthenticated::class,
+        'helper' => \ConnectU\Http\Middleware\Helper::class,
+        'moderator' => \ConnectU\Http\Middleware\Moderator::class,
     ];
 }

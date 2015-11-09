@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace ConnectU\Events;
 
 abstract class Event
 {

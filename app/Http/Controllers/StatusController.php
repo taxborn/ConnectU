@@ -137,63 +137,67 @@ class StatusController extends Controller
 
         # Check if there is a status present
         if (!$status) {
-            return redirect()->route()->with('warn', 'Status not found!');
+            return redirect()->back()->with('warn', 'Status not found!');
         }
 
-        if ($status->user_id !== Auth::user()->id) {
-            if (Auth::user->isModAndUp(Auth::user())) {
-                return view('status.edit')->with('status', $status); # Goto the status edit route with $status
-            }
-
-            return redirect()->back()->with('warn', 'You cannot edit other users statuses!'); # Redirect back with an error message
+        if ($status->deleted === 1) {
+            return redirect()->back()->with('warn', 'Status not found!');
         }
+
+        # Check if the user is a moderator and up
+        if (Auth::user()->isModAndUp(Auth::user())) {
+            return view('status.edit')->with('status', $status); # Goto the status edit route with $status
+        }
+
+        # Check if the statuses original poster is equal to the logged in user
+        if ($status->user_id === Auth::user()->id) {
+            return view('status.edit')->with('status', $status); # Goto the status edit route with $status
+        }
+
+        return redirect()->back()->with('warn', 'You cannot edit other users statuses!'); # Redirect back with an error message
     }
 
     public function postEdit(Request $request, $statusId)
-    {
+	{
         # Get the specified status
-        $status = Status::find($status);
+		$status = Status::find($statusId);
 
         # Check if there is a status present
-        if (!$status) {
-            return redirect()->back()->with('warn', 'Status not found!'); # Redirect back with error message
-        }
+		if(!$status) {
+			return redirect()->back()->with('warn', 'Status not found!');
+		}
 
-        # Validate the request
-        $this->validate([
-            'body' => 'required|max:2500',
-        ]);
-
-        # Check if the currently logged in user owns the post
-        if ($status->user_id !== Auth::user()->id) {
-            # Check if the currently logged in user is a moderator or and administrator
-            if (Auth::user()->isModAndUp(Auth::user())) {
+        # Check if the user is not the same as the original poster
+		if($status->user_id !== Auth::user()->id)
+		{
+            # Check if the user is a moderator or an administrator
+			if(Auth::user()->isModAndUp(Auth::user())) {
                 # Update the status
-                DB::table('statuses')->where('id', $statusId)->update([
-                    'body'       => $request->input('status'),
-                    'updated_at' => Carbon::now()->subHours(5),
-                    'edited'     => 1,
-                ]);
+				DB::table('statuses')->where('id', $statusId)->update([
+					'body'       => $request->input('status'),
+					'updated_at' => Carbon::now(),
+					'edited'     => 1
+				]);
 
                 # Reload the users last_activity time
-                Auth::user()->reloadActivityTime();
+				Auth::user()->reloadActivityTime();
 
-                return redirect()->home()->with('succ', 'The users post has been updated.'); # Return home
-            }
+				return redirect()->back()->with('succ', 'Your status has been updated!'); # Return back
+			}
 
-            return redirect()->back()->with('warn', 'You cannot edit other peoples statuses!'); # Return back with an error message
-        }
+			return redirect()->back()->with('warn', 'You cannot edit a status that isn\'t yours!'); # Retrun back with an error message
+		}
 
         # Update the status
-        DB::table('statuses')->where('id', $statusId)->update([
-            'body'       => $request->input('status'),
-            'updated_at' => Carbon::now()->subHours(5),
-            'edited'     => 1,
-        ]);
+		DB::table('statuses')->where('id', $statusId)->update([
+			'body'       => $request->input('status'),
+			'updated_at' => Carbon::now(),
+			'edited'     => 1
+		]);
 
         # Reload the users last_activity time
-        Auth::user()->reloadActivityTime();
+		Auth::user()->reloadActivityTime();
 
-        return redirect()->home()->with('succ', 'Your post has been updated.'); # Return back
-    }
+		return redirect()->back()->with('succ', 'Your status has been updated!'); # Return back
+	}
 }

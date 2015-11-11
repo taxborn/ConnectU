@@ -14,55 +14,65 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css">
-		<!-- WYSIWYG Editor -->
-		<script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
-	    @if ($_SERVER['SERVER_NAME'] === 'localhost')
-		    <script type="text/javascript">
-		        tinymce.init({
-		            mode: "textareas",
-					plugins: "anchor",
-					theme: "modern",
-					skin_url: "/ConnectU/resources/assets/skins/light",
-					plugins : 'advlist autolink link image lists charmap print preview'
-		        });
-		    </script>
-		@elseif ($_SERVER['SERVER_NAME'] === 'www.connectu.xyz')
-			<script type="text/javascript">
-		        tinymce.init({
-		            mode: "textareas",
-					plugins: "anchor",
-					theme: "modern",
-					skin_url: "/resources/assets/skins/light",
-					plugins : 'advlist autolink link image lists charmap print preview'
-		        });
-		    </script>
-	    @endif
+		<!-- Font Awesome -->
+		<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+		<!-- Froala Editor -->
+		<link href="/ConnectU/resources/assets/css/froala_editor.min.css" rel="stylesheet" type="text/css" />
+ 		<link href="/ConnectU/resources/assets/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+		<!-- Froala Editor Plugins -->
+		<link rel="stylesheet" href="/ConnectU/resources/assets/css/plugins/char_counter.css">
+		<link rel="stylesheet" href="/ConnectU/resources/assets/css/plugins/code_view.css">
+		<link rel="stylesheet" href="/ConnectU/resources/assets/css/plugins/colors.css">
+		<link rel="stylesheet" href="/ConnectU/resources/assets/css/plugins/emoticons.css">
+		<link rel="stylesheet" href="/ConnectU/resources/assets/css/plugins/file.css">
+		<link rel="stylesheet" href="/ConnectU/resources/assets/css/plugins/fullscreen.css">
+		<link rel="stylesheet" href="/ConnectU/resources/assets/css/plugins/image.css">
+		<link rel="stylesheet" href="/ConnectU/resources/assets/css/plugins/image_manager.css">
+		<link rel="stylesheet" href="/ConnectU/resources/assets/css/plugins/line_breaker.css">
+		<link rel="stylesheet" href="/ConnectU/resources/assets/css/plugins/table.css">
+		<link rel="stylesheet" href="/ConnectU/resources/assets/css/plugins/video.css">
 	</head>
 	<body>
 		@include('templates.partials.navigation')
-		<div class="container">
+		<div class="container fr-view">
 			@include('templates.partials.alerts')
 			@yield('content')
 		</div>
 		<br>
 		<br>
 		@include('templates.partials.footer')
-		<script type="text/javascript">
-			var _mfq = _mfq || [];
-			(function() {
-				var mf = document.createElement("script");
-				mf.type = "text/javascript"; mf.async = true;
-				mf.src = "//cdn.mouseflow.com/projects/b58c1ac3-757b-42a1-b726-10b9799eb623.js";
-				document.getElementsByTagName("head")[0].appendChild(mf);
-			})();
+		<!-- Include JS files. -->
+		  <script src="/ConnectU/resources/assets/js/froala_editor.min.js"></script>
 
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		  <!-- Include Plugins. -->
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/align.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/char_counter.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/code_view.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/colors.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/emoticons.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/entities.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/font_family.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/font_size.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/fullscreen.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/image.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/image_manager.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/line_breaker.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/link.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/lists.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/paragraph_style.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/quote.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/table.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/save.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/url.min.js"></script>
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/plugins/video.min.js"></script>
 
-			ga('create', 'UA-68363643-1', 'auto');
-			ga('send', 'pageview');
-		</script>
+		  <!-- Include Language file if we'll use it. -->
+		  <script type="text/javascript" src="/ConnectU/resources/assets/js/languages/ro.js"></script>
+
+		  <script>
+		      $(function () {
+				  $('#froala-editor').froalaEditor();
+			  });
+		  </script>
 	</body>
 </html>

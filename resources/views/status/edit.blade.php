@@ -9,7 +9,7 @@
 	    <div class="col-lg-7">
 	        <form role="form" action="{{ route('status.edit', ['statusId' => $status->id]) }}" method="post">
 	            <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
-	                <textarea placeholder="What's up, {{ Auth::user()->getFirstNameOrUsername() }}?" name="status" class="form-control" rows="2" id="wysiwyg">{!! $status->body !!}</textarea>
+	                <textarea placeholder="What's up, {{ Auth::user()->getFirstNameOrUsername() }}?" name="status" class="form-control" rows="2" id="froala-editor">{!! $status->body !!}</textarea>
 	            	@if ($errors->has('status'))
 						<span class="help-block">{{ $errors->first('status') }}</span>
 	            	@endif

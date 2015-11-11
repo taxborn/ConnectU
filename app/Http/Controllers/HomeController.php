@@ -5,7 +5,7 @@ namespace ConnectU\Http\Controllers;
 use Auth;
 use ConnectU\Models\Status;
 
-class HomeController extends Controllers
+class HomeController extends Controller
 {
     public function index()
     {
@@ -13,7 +13,7 @@ class HomeController extends Controllers
         if (Auth::check()) {
             $statuses = Status::notReply()->where(function ($query) {
                 return $query->where('user_id', Auth::user()->id)
-                             ->orWhereIn('user_id', Auth::user()->friends()->lists('id'));
+                             ->orWhereIn('user_id', Au th::user()->friends()->lists('id'));
             })->orderBy('created_at', 'desc')->paginate(20);
 
             return view('timeline.index')->with('statuses', $statues); # Return to the timeline home with the $statues variable

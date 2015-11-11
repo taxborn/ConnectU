@@ -13,10 +13,10 @@ class HomeController extends Controller
         if (Auth::check()) {
             $statuses = Status::notReply()->where(function ($query) {
                 return $query->where('user_id', Auth::user()->id)
-                             ->orWhereIn('user_id', Au th::user()->friends()->lists('id'));
+                             ->orWhereIn('user_id', Auth::user()->friends()->lists('id'));
             })->orderBy('created_at', 'desc')->paginate(20);
 
-            return view('timeline.index')->with('statuses', $statues); # Return to the timeline home with the $statues variable
+            return view('timeline.index')->with('statuses', $statuses); # Return to the timeline home with the $statues variable
         }
 
         return view('home'); # Return the default view if the user is not logged in

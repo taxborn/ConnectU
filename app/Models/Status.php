@@ -2,6 +2,7 @@
 
 namespace ConnectU\Models;
 
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Status extends Model
@@ -43,7 +44,7 @@ class Status extends Model
     {
         # If the user is a moderator or an administrator, show ALL replies even deleted ones
         if (Auth::user()->isModAndUp(Auth::user())) {
-            return $this->hasMany('ConnectU\Models\Status', 'parent_id')
+            return $this->hasMany('ConnectU\Models\Status', 'parent_id');
         }
 
         # Else, show replies that are not deleted
@@ -53,6 +54,6 @@ class Status extends Model
     public function likes()
     {
         # Get the likes from a status
-        return this->morphMany('ConnectU\Models\Like', 'likeable');
+        return $this->morphMany('ConnectU\Models\Like', 'likeable');
     }
 }

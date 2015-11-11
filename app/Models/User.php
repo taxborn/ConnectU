@@ -114,9 +114,9 @@ class User extends Model implements AuthenticatableContract
             ->friendsOfMine()
             ->wherePivot('accepted', true)
             ->get()
-            ->merge($this->friendOf()
+            ->merge($this->friendsOf()
             ->where('accepted', true)
-            ->get())
+            ->get());
     }
 
     public function friendRequests()
@@ -171,7 +171,7 @@ class User extends Model implements AuthenticatableContract
     public function isFriendsWith(User $user)
     {
         # Check to see if the current user is friends with $user
-        return (bool) $this>friends()->where('id', $user->id)->count()
+        return (bool) $this>friends()->where('id', $user->id)->count();
     }
 
     public function hasLikedStatus(Status $status)
@@ -180,7 +180,7 @@ class User extends Model implements AuthenticatableContract
         return (bool) $status->likes()->where('user_id', $this->id)->count();
     }
 
-    public function isAdmin(User $User)
+    public function isAdmin(User $user)
     {
         # Check to see is the $user is an admin
         if ($user->position === 'admin') {

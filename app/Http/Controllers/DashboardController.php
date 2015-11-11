@@ -108,7 +108,7 @@ class DashboardController extends Controller
         $user = User::where('username', $username)->first();
 
         # Update the users last_activity time
-        Auth::user()->reloadUpdateTime();
+        Auth::user()->reloadActivityTime();
 
         return view('admin.userpassword')->with('user', $user); # Returns the edit user view: /resources/views/admin/editpassword.blade.php with the $user variable
     }

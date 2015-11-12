@@ -127,7 +127,7 @@ class StatusController extends Controller
         # Reload the users last_activity time
         Auth::user()->reloadActivityTime();
 
-        return redirect()->back()->with('succ', 'Your post has been deleted.'); # Return back
+        return redirect()->route('home')->with('succ', 'Your post has been deleted.'); # Return back
     }
 
     public function getEdit($statusId)

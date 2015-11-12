@@ -252,7 +252,7 @@ Route::group(['middleware' => ['admin']], function() {
 Route::group(['middleware' => ['moderator']], function () {
     # Moderator main dashboard as moderator.home
 	Route::get('/moderator', [
-		'uses' => '\ConnectU\Http\Controllers\ModeratorDashboard@home',
+		'uses' => '\ConnectU\Http\Controllers\ModeratorController@home',
 		'as'   => 'moderator.home',
 	]);
 });
@@ -261,7 +261,7 @@ Route::group(['middleware' => ['moderator']], function () {
 Route::group(['middleware' => ['helper']], function () {
     # Helper main dashboard as helper.home
 	Route::get('/helper', [
-		'uses' => '\ConnectU\Http\Controllers\HelperDashboard@home',
+		'uses' => '\ConnectU\Http\Controllers\HelperController@home',
 		'as'   => 'helper.home'
 	]);
 });

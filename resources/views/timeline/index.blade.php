@@ -34,7 +34,8 @@
 					    </a>
 					    <div class="media-body" id="status-{{ $status->id }}">
 					        <h5 class="media-heading"><a href="{{ route('profile.index', ['username' => $status->user->username]) }}">{{ $status->user->getNameOrUsername() }}</a></h5>
-					        {!! $status->body !!}
+
+							{!! $status->body !!}
 							@if ($status->user_id === Auth::user()->id || Auth::user()->isStaff(Auth::user()))
 								<div class="dropdown pull-right">
 									<button class="btn btn-primary dropdown-toggle" type="button" id="ddm1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -48,9 +49,17 @@
 							@endif
 					        <ul class="list-inline">
 					        	@if($status->edited === 0)
-					            	<li>{{ $status->created_at->diffForHumans() }}</li>
+					            	<li>{{ $status->created_at->diffForHumans() }}
+										@if ($status->deleted === 1 && Auth::user()->isModAndUp(Auth::user()))
+											| <span class="label label-default">Deleted</span>
+										@endif
+									</li>
 					            @else
-									<li>{{ $status->created_at->diffForHumans() }} | <em>Updated: {{ $status->updated_at->diffForHumans() }}</em></li>
+									<li>{{ $status->created_at->diffForHumans() }} | <em>Updated: {{ $status->updated_at->diffForHumans() }}</em>
+										@if ($status->deleted === 1 && Auth::user()->isModAndUp(Auth::user()))
+											| <span class="label label-default">Deleted</span>
+										@endif
+									</li>
 					            @endif
 						        <li><a href="{{ route('status.like', ['statusId' => $status->id]) }}">Like</a></li>
 						        <li>{{ $status->likes()->count() }} {{ str_plural('like', $status->likes()->count()) }}</li>

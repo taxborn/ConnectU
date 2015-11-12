@@ -134,7 +134,7 @@ class User extends Model implements AuthenticatableContract
         return (bool) $this->friendRequestsPending()->where('id', $user->id)->count(); # Check if the User has a friend request pending
     }
 
-    public function hasFriendRequestReveived(User $user)
+    public function hasFriendRequestReceived(User $user)
     {
         return (bool) $this->friendRequests()->where('id', $user->id)->count(); # Check if the User has received a friend request
     }
@@ -171,7 +171,7 @@ class User extends Model implements AuthenticatableContract
     public function isFriendsWith(User $user)
     {
         # Check to see if the current user is friends with $user
-        return (bool) $this>friends()->where('id', $user->id)->count();
+        return (bool) $this->friends()->where('id', $user->id)->count();
     }
 
     public function hasLikedStatus(Status $status)

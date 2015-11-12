@@ -49,7 +49,7 @@ class DashboardController extends Controller
         # Validate the values
         $this->validate($request, [
             'first_name' => 'alpha|max:50',
-            'last_name'  => 'alpha|max:50'
+            'last_name'  => 'alpha|max:50',
             'username'   => 'required|unique:users,username,' . $user->id . '|alpha_dash',
             'email'      => 'required|unique:users,username,' . $user->id . '|email|max:255',
             'location'   => 'max:200',
@@ -126,7 +126,7 @@ class DashboardController extends Controller
 
         # Update the user's password and hash it with bcrypt
         $user->update([
-            'password' => bcrypt($request->input('newpassword2'));
+            'password' => bcrypt($request->input('newpassword2')),
         ]);
 
         # Update the users last_activity time
@@ -168,7 +168,7 @@ class DashboardController extends Controller
     public function demoteUser($userId)
     {
         # Get the suer where the id is equal to the $userId and get the first(and only) result
-        $user = User::where('id', $userId)->first()
+        $user = User::where('id', $userId)->first();
 
         # Check if there is a user present
         if (!$user) {

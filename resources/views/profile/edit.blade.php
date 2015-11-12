@@ -59,12 +59,12 @@
 						@endif
 					</div>
 					<div class="col-lg-6">
-						<label for="gender">Gender</label>
-						<select class="form-control" name="gender">
-							@if (Auth::user()->gender === 'male')
+						<label for="sex">Sex</label>
+						<select class="form-control" name="sex">
+							@if (Auth::user()->sex === 'male')
 								<option value="male">Male</option>
 								<option value="female">Female</option>
-							@elseif (Auth::user()->gender === 'female')
+							@elseif (Auth::user()->sex === 'female')
 								<option value="female">Female</option>
 								<option value="male">Male</option>
 							@else

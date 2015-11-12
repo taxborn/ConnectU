@@ -59,28 +59,18 @@
 						@endif
 					</div>
 					<div class="col-lg-6">
-						<label for="gender">Gender</label>
-						<select class="form-control" name="gender">
-							@if ($user->gender === 'male')
+						<label for="sex">Sex</label>
+						<select class="form-control" name="sex">
+							@if ($user->sex === 'male')
 								<option value="male">Male</option>
 								<option value="female">Female</option>
-							@elseif ($user->gender === 'female')
+							@elseif ($user->sex === 'female')
 								<option value="female">Female</option>
 								<option value="male">Male</option>
 							@endif
-							<option value="not-specified">Not Specified</option>
-							<option value="male">Male</option>
-							<option value="female">Female</option>
 						</select>
 					</div>
 				</div>
-	            <div class="form-group {{ $errors->has('location') ? 'has-error' : '' }}">
-	                <label for="location" class="control-label">Location</label>
-	                <input type="text" name="location" class="form-control" id="location" value="{{ Request::old('location') ?: Auth::user()->location }}">
-	            	@if ($errors->has('location'))
-						<span class="help-block">{{ $errors->first('location') }}</span>
-	                @endif
-	            </div>
 	            <div class="form-group {{ $errors->has('biography') ? 'has-error' : '' }}">
 	                <label for="biography" class="control-label">Biography</label>
 	                <input type="text" name="biography" class="form-control" id="biography" value="{{ Request::old('biography') ?: Auth::user()->biography }}">

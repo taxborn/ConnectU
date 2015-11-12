@@ -67,23 +67,17 @@
 					{{ $user->ip }}
 				</td>
 				<td>
-					@if ($user->last_login !== '0000-00-00 00:00:00')
-						{{ Carbon::parse($user->last_login)->diffForHumans() }}
+					@if ($user->last_activity !== '0000-00-00 00:00:00')
+						{{ Carbon::parse($user->last_activity)->diffForHumans() }}
 					@else
 						<em><strong>Delete: 11/15/15</strong></em>
 					@endif
 				</td>
 				<td>
-					<!--  Delete user option if they are NOT an admin -->
-					@if ($user->position !== 'admin' && $user->position !== 'mod')
-						<a href="{{ route('admin.delete.user', ['username' => $user->username]) }}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle" style="color: white"></span></button></a>
-					@endif
+					<a href="{{ route('admin.delete.user', ['username' => $user->username]) }}"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle" style="color: white"></span></button></a>
 				</td>
 				<td>
-					<!-- Edit user -->
-					@if ($user->position !== 'admin' && $user->position !== 'mod')
-						<a href="{{ route('admin.edituser', ['username' => $user->username]) }}"><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button></a>
-					@endif
+					<a href="{{ route('admin.edituser', ['username' => $user->username]) }}"><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button></a>
 				</td>
 				<td>
 					<!-- User logs -->

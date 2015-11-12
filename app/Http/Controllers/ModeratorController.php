@@ -9,7 +9,7 @@ use ConnectU\Models\User;
 use ConnectU\Models\Status;
 use Illuminate\Http\Request;
 
-class ModeratorDashboard extends Controller
+class ModeratorController extends Controller
 {
     public function home()
     {

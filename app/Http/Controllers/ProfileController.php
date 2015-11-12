@@ -20,7 +20,7 @@ class ProfileController extends Controller
         }
 
         # Get the users statues
-        $statues = $user->statues()->notReply()->orderBy('id', 'desc')->get();
+        $statuses = $user->statuses()->notReply()->orderBy('id', 'desc')->get();
 
         # Check if there is a user logged in
         if (Auth::check()) {

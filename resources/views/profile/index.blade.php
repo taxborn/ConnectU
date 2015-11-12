@@ -12,10 +12,10 @@
 			@if ($user->biography && $user->location)
 				<br>
 				<div class="well well-sm">
-					@if ($user->gender !== 'not-specified')
-			            @if ($user->gender === 'male')
+					@if ($user->sex !== 'not-specified')
+			            @if ($user->sex === 'male')
 			                <span class="label label-primary">Male</span> |
-			            @elseif ($user->gender === 'female')
+			            @elseif ($user->sex === 'female')
 			                <span class="label label-pink">Female</span> |
 			            @endif
 			        @endif
@@ -24,10 +24,10 @@
 			@elseif ($user->location)
 				<br>
 				<div class="well well-sm">
-					@if ($user->gender !== 'not-specified')
-			            @if ($user->gender === 'male')
+					@if ($user->sex !== 'not-specified')
+			            @if ($user->sex === 'male')
 			                <span class="label label-primary">Male</span> |
-			            @elseif ($user->gender === 'female')
+			            @elseif ($user->sex === 'female')
 			                <span class="label label-pink">Female</span> |
 			            @endif
 			        @endif
@@ -36,10 +36,10 @@
 			@elseif ($user->biography)
 				<br>
 				<div class="well well-sm">
-					@if ($user->gender !== 'not-specified')
-			            @if ($user->gender === 'male')
+					@if ($user->sex !== 'not-specified')
+			            @if ($user->sex === 'male')
 			                <span class="label label-primary">Male</span> |
-			            @elseif ($user->gender === 'female')
+			            @elseif ($user->sex === 'female')
 			                <span class="label label-pink">Female</span> |
 			            @endif
 			        @endif
@@ -134,8 +134,8 @@
 	    </div>
 	    <div class="col-lg-4">
 	        <!-- Friends, friend requests -->
-			@if ($user->last_login !== "0000-00-00 00:00:00")
-				<b class="text-center">{{ $user->getFirstNameOrUsername() }}'s last activity:</b>  {{ $user->last_login->diffForHumans() }}
+			@if ($user->last_activity !== "0000-00-00 00:00:00")
+				<b class="text-center">{{ $user->getFirstNameOrUsername() }}'s last activity:</b>  {{ $user->last_activity->diffForHumans() }}
 			@else
 				<p>{{ $user->getFirstNameOrUsername() }} hasen't done much for a while.</p>
 			@endif

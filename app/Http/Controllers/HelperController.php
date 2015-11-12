@@ -9,7 +9,7 @@ use ConnectU\Models\User;
 use ConnectU\Models\Status;
 use Illuminate\Http\Request;
 
-class HelperDashboard extends Controller
+class HelperController extends Controller
 {
     public function home()
     {

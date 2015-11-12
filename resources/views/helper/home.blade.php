@@ -55,8 +55,8 @@
 					{{ $user->last_name }}
 				</td>
 				<td>
-					@if ($user->last_login !== '0000-00-00 00:00:00')
-						{{ Carbon::parse($user->last_login)->diffForHumans() }}
+					@if ($user->last_activity !== '0000-00-00 00:00:00')
+						{{ Carbon::parse($user->last_activity)->diffForHumans() }}
 					@else
 						<em><strong>Delete: 11/15/15</strong></em>
 					@endif

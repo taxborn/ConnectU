@@ -9,6 +9,8 @@ I originally started on this project because I just wanted to get started into L
 ## Installation
 ConnectU is relatively easy to set up, there is just two commands to get set up and ready to go. Just be sure to have composer installed, it will also help to have [Git](http://www.git-scm.com) installed.
 
+Although there are just a few commands to do, I would highly recommend using [Laravel Homestead](http://laravel.com/docs/5.1/homestead), as this makes developing in general easier.
+
 Also, you are going to need to rename the .env.example to just .env. This is where you will store your database settings so you can get all setup.
 
 1. Goto your command line and type this: git clone https://github.com/BraxtonFair/ConnectU.git

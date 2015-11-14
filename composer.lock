@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5c6026b96e6fa11a641b51a6ba976f5e",
-    "content-hash": "5bd58fd976f1ee3e9611bc37c006ec46",
+    "hash": "1890c7f41c8fe0584825811f33113373",
+    "content-hash": "0be6e5dd4a36507bd7ab2c30c71cab6b",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -60,6 +60,46 @@
                 "preload"
             ],
             "time": "2015-06-28 21:39:13"
+        },
+        {
+            "name": "codecourse/notify",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codecourse/notify.git",
+                "reference": "f7ae5eb89ef0e1ece36e5b06af5e54f2dce1e066"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codecourse/notify/zipball/f7ae5eb89ef0e1ece36e5b06af5e54f2dce1e066",
+                "reference": "f7ae5eb89ef0e1ece36e5b06af5e54f2dce1e066",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Codecourse\\Notify\\": "src/"
+                },
+                "files": [
+                    "src/Codecourse/Notify/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Garrett",
+                    "email": "alex@codecourse.com"
+                }
+            ],
+            "description": "Flexible flash notifications for Laravel",
+            "time": "2015-09-24 20:39:09"
         },
         {
             "name": "danielstjules/stringy",

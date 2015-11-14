@@ -13,9 +13,9 @@ class StatusController extends Controller
 {
     public function postStatus(Request $request)
     {
-        # Validate that the status is there and that there is less than 2500 characters
+        # Validate that the status is there and that there is less than 2700 characters
         $this->validate($request, [
-            'status' => 'required|max:2500'
+            'status' => 'required|max:2700'
         ]);
 
         # Create the status
@@ -31,9 +31,9 @@ class StatusController extends Controller
 
     public function postReply(Request $request, $statusId)
     {
-        # Validate that the reply is there and that the text is less than 2500 characters
+        # Validate that the reply is there and that the text is less than 2700 characters
         $this->validate($request, [
-            "reply-{$statusId}" => 'required|max:2500',
+            "reply-{$statusId}" => 'required|max:2700',
         ], [
             # Custom required error message
             'required' => 'The reply body is required.',

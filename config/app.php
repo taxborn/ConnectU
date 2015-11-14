@@ -144,7 +144,7 @@ return [
         ConnectU\Providers\AuthServiceProvider::class,
         ConnectU\Providers\EventServiceProvider::class,
         ConnectU\Providers\RouteServiceProvider::class,
-
+        Codecourse\Notify\NotifyServiceProvider::class,
     ],
 
     /*

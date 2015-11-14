@@ -34,9 +34,14 @@ class AuthController extends Controller
 		]);
 
 		# Redirect to the home page with the message that their account has been created and they can log in
+
+		notify()->flash('Welcome to ConnectU!', 'success', [
+			'timer' => 6000,
+			'text'  => 'Your account has been created!',
+		]);
+
 		return redirect()
-			->route('home')
-			->with('succ', 'Your account has been created, and you can now sign in!');
+			->route('home');
 	}
 
 	public function getSignin()
@@ -69,8 +74,13 @@ class AuthController extends Controller
 			'last_activity' => $current_time, # Update the users last activity
 		]);
 
+		notify()->flash('Your are now signed in', 'success', [
+			'timer' => 2000,
+			'text'  => 'It\'s great to see you again!'
+		]);
+
 		# Redirect home and with the message saying that they are signed in
-		return redirect()->route('home')->with('succ', 'You are now signed in!');
+		return redirect()->route('home');
 	}
 
 	public function getSignout()
@@ -78,6 +88,10 @@ class AuthController extends Controller
 		# Logout the user
 		Auth::logout();
 
+		notify()->flash('You have signed out', 'info', [
+			'timer' => 4000,
+			'text'  => 'Come back soon!'
+		]);
 		# Return the user home with the message that they have been logged out
 		return redirect()->route('home')->with('succ', 'You have been logged out.');
 	}

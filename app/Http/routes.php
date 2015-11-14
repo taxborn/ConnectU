@@ -17,6 +17,12 @@ Route::get('/', [
 	'as'   => 'home',
 ]);
 
+Route::get('/notify', function () {
+	notify()->flash('You have signed in', 'success');
+
+	return redirect()->back();
+});
+
 # Handles the /public route not being allowed as public
 Route::get('/public', [
 	'uses' => '\ConnectU\Http\Controllers\HomeController@publicHandler',

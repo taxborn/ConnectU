@@ -8,5 +8,19 @@
     $(document).ready(function () {
         // Activate the side menu
         $(".button-collapse").sideNav();
+
+        @if (notify()->ready())
+            swal({
+                title: "{!! notify()->message() !!}",
+                text: "{!! notify()->option('text') !!}",
+                type: "{{ notify()->type() }}",
+                @if (notify()->option('timer'))
+                    timer: {{ notify()->option('timer') }},
+                    showConfirmButton: false,
+                @endif
+                allowEscapeKey: true,
+                allowOutsideClick: true,
+            });
+        @endif
     });
 </script>

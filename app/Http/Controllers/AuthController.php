@@ -4,7 +4,6 @@ namespace ConnectU\Http\Controllers;
 
 use DB;
 use Auth;
-use Mail;
 use Carbon\Carbon;
 use ConnectU\Models\User;
 use Illuminate\Http\Request;
@@ -37,7 +36,7 @@ class AuthController extends Controller
 
 		notify()->flash('Welcome to ConnectU!', 'success', [
 			'timer' => 6000,
-			'text'  => 'Your account has been created!',
+			'text'  => 'Your account has been created! Signin and see what ConnectU has to offer!',
 		]);
 
 		return redirect()
@@ -62,6 +61,11 @@ class AuthController extends Controller
     	$request->merge([$field => $request->input('email')]);
 
 		if(!Auth::attempt($request->only([$field, 'password']), $request->has('remember'))) {
+			notify()->flash('Warning!', 'danger', [
+				'timer' => 4000,
+				'text'  => 'We could not sign you in with those details. Try again.',
+			]);
+
 			# Return back with the message that they could not be signed in.
 			return redirect()->back()->with('dang', 'Could not sign you in with those details.');
 		}
@@ -76,7 +80,7 @@ class AuthController extends Controller
 
 		notify()->flash('Your are now signed in', 'success', [
 			'timer' => 2000,
-			'text'  => 'It\'s great to see you again!'
+			'text'  => 'It\'s great to see you again, ' . Auth::user()->getFirstNameOrUsername() . '!',
 		]);
 
 		# Redirect home and with the message saying that they are signed in
@@ -93,6 +97,6 @@ class AuthController extends Controller
 			'text'  => 'Come back soon!'
 		]);
 		# Return the user home with the message that they have been logged out
-		return redirect()->route('home')->with('succ', 'You have been logged out.');
+		return redirect()->route('home');
 	}
 }

@@ -25,7 +25,12 @@ class FriendController extends Controller
 
         # Check if there is a user present
         if (!$user) {
-            return redirect()->back()->with('warn', 'That user could not be found.'); # Return back with an error
+            notify()->flash('Error.', 'warning', [
+    			'timer' => 4000,
+                'text'  => 'That user could not be found. Please try again.',
+    		]);
+
+            return redirect()->back(); # Return back with an error
         }
 
         # Make sure that the user is not trying to add their self
@@ -35,12 +40,22 @@ class FriendController extends Controller
 
         # Check if a friend request is already pending
         if (Auth::user()->hasFriendRequestPending($user) || $user->hasFriendRequestPending(Auth::user())) {
-            return redirect()->route('profile.index', ['username' => $username])->with('warn', 'A friend request is already pending'); # Return back with an error message
+            notify()->flash('Error.', 'warning', [
+    			'timer' => 4000,
+                'text'  => 'There is already a friend request pending. Accept it or wait for the other user to accept!',
+    		]);
+
+            return redirect()->route('profile.index', ['username' => $username]); # Return back with an error message
         }
 
         # Check to see if the user is already friends with the requested friend
         if (Auth::user()->isFriendsWith($user)) {
-            return redirect()->route('profile.index', ['username' => $username])->with('warn', 'You and ' . $user->getFirstNameOrUsername() . ' are already friends!'); # Return back with an error message
+            notify()->flash('Error.', 'warning', [
+    			'timer' => 4000,
+                'text'  => 'You and ' . $user->getFirstNameOrUsername() . ' are already friends!',
+    		]);
+
+            return redirect()->route('profile.index', ['username' => $username]); # Return back with an error message
         }
 
         # Add as a friend
@@ -49,7 +64,12 @@ class FriendController extends Controller
         # Reload the last_activity time
         Auth::user()->reloadActivityTime();
 
-        return redirect()->route('profile.index', ['username' => $username])->with('succ', 'Friend request sent to ' . $user->getFirstNameOrUsername()); # Return to the profile home page
+        notify()->flash('Success!', 'success', [
+            'timer' => 4000,
+            'text'  => 'You have sent a friend request to ' . $user->getNameOrUsername(),
+        ]);
+
+        return redirect()->route('profile.index', ['username' => $username]); # Return to the profile home page
     }
 
     public function getAccept($username)
@@ -59,7 +79,12 @@ class FriendController extends Controller
 
         # Check if there is a user present
         if (!$user) {
-            return redirect()->back()->with('warn', 'That user could not be found.'); # Return back with an error message
+            notify()->flash('Error.', 'warning', [
+    			'timer' => 4000,
+                'text'  => 'That user could not be found. Please try again.',
+    		]);
+
+            return redirect()->back(); # Return back with an error
         }
 
         # Check to see if the user is trying to accept a friend request for a nother user(not allowed)

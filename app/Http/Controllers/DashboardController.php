@@ -30,7 +30,11 @@ class DashboardController extends Controller
         # Reload the users last_activity time
         Auth::user()->reloadActivityTime();
 
-        return redirect()->back()->with('succ', $user->getNameOrUsername . '\'s account has been deleted!'); # Returns the user back
+        notify()->flash($user->getNameOrUsername() . '\'s Account has been deleted', 'success', [
+			'timer' => 4000,
+		]);
+
+        return redirect()->back(); # Returns the user back
     }
 
     public function getEditUser($username)
@@ -70,6 +74,10 @@ class DashboardController extends Controller
         # Reload the users last_activity time
         Auth::user()->reloadActivityTime();
 
+        notify()->flash($user->getNameOrUsername() . '\'s profile has been updated!', 'success', [
+			'timer' => 4000,
+		]);
+
         return redirect()->route('admin.home')->with('succ', $user->getNameOrUsername() . '\'s profile has been updated!'); # Returns the admin home view: /resources/views/admin/home.blade.php
     }
 
@@ -99,7 +107,11 @@ class DashboardController extends Controller
         # Update the users last_activity time
         Auth::user()->reloadActivityTime();
 
-        return redirect()->route('admin.home')->with('succ', 'The post was deleted!'); # Returns the admin home view: /resources/views/admin/home.blade.php
+        notify()->flash('Post ' . $postId . ' has been deleted', 'success', [
+			'timer' => 4000,
+		]);
+
+        return redirect()->route('admin.home'); # Returns the admin home view: /resources/views/admin/home.blade.php
     }
 
     public function getEditUserPassword($username)
@@ -132,7 +144,11 @@ class DashboardController extends Controller
         # Update the users last_activity time
         Auth::user()->reloadActivityTime();
 
-        return redirect()->route('admin.home')->with('succ', $user->getNameOrUsername() . '\'s password was changed!'); # Returns the admin home view: /resources/views/admin/home.blade.php
+        notify()->flash($user->getNameOrUsername() . '\'s password was changed!', 'success', [
+			'timer' => 4000,
+		]);
+
+        return redirect()->route('admin.home'); # Returns the admin home view: /resources/views/admin/home.blade.php
     }
 
     public function promoteUser($userId)
@@ -142,7 +158,11 @@ class DashboardController extends Controller
 
         # Check if there is a user present
         if (!$user) {
-            return redirect()->back()->with('warn', 'No user found!'); # Redirect back with an error message
+            notify()->flash('No user found.', 'warning', [
+    			'timer' => 4000,
+    		]);
+
+            return redirect()->back(); # Redirect back with an error message
         }
 
         if ($user->position === NULL || $user->position === '') {
@@ -151,17 +171,31 @@ class DashboardController extends Controller
                 'position' => 'helper',
             ]);
 
-            return redirect()->back()->with('succ', $user->getNameOrUsername() . ' is now a Helper!'); # Redirect back
+            notify()->flash($user->getNameOrUsername() . 'is now a helper!', 'success', [
+    			'timer' => 4000,
+    		]);
+
+            return redirect()->back(); # Redirect back
         } else if ($user->position === 'helper') {
             # If the user is a helper, then promote the user to moderator
             $user->update([
                 'position' => 'mod',
             ]);
 
-            return redirect()->back()->with('succ', $user->getNameOrUsername() . ' is now a Moderator!'); # Redirect back
+            notify()->flash($user->getNameOrUsername() . ' is now a Moderator!', 'success', [
+    			'timer' => 4000,
+    		]);
+
+            return redirect()->back(); # Redirect back
         } else if ($user->position === 'mod') {
             # If the user is a moderator, throw an error saying that you cannot promote moderators through the site
-            return redirect()->back()->with('dang', 'You cannot promot moderators to administrators! Please do this manually.'); # Redirect back with an error message
+
+            notify()->flash('Uh-oh!', 'warning', [
+    			'timer' => 4000,
+                'text'  => 'You cannot promote a moderator to an administrator, please do this manually.',
+    		]);
+
+            return redirect()->back(); # Redirect back with an error message
         }
     }
 
@@ -172,29 +206,51 @@ class DashboardController extends Controller
 
         # Check if there is a user present
         if (!$user) {
-            return redirect()->back()->with('warn', 'No user found!'); # Redirect back with an error message
+            notify()->flash('No user found.', 'warning', [
+    			'timer' => 4000,
+    		]);
+
+            return redirect()->back(); # Redirect back with an error message
         }
 
         if ($user->position === NULL || $user->position === '') {
+            notify()->flash('Uh-oh!', 'warning', [
+    			'timer' => 4000,
+                'text'  => 'You cannot demote a user that is not a staff member!',
+    		]);
+
             # If the user is a default user, throw an error saying that you cannot demote default users!
-            return redirect()->back()->with('warn', 'You cannot demote a user that is not staff!'); # Redirect back with an error message
+            return redirect()->back(); # Redirect back with an error message
         } else if ($user->position === 'helper') {
             # If the user is a helper, demote to default user!
             $user->update([
                 'position' => NULL
             ]);
 
-            return redirect()->back()->with('succ', $user->getNameOrUsername() . ' has been demoted to default!'); #Redirect back
+            notify()->flash($user->getNameOrUsername() . ' has been demoted to default!', 'success', [
+    			'timer' => 4000,
+    		]);
+
+            return redirect()->back(); #Redirect back
         } else if ($user->position === 'mod') {
             # If the user is a moderator, demote to helper!
             $user->update([
                 'position' => 'helper'
             ]);
 
-            return redirect()->back()->with('succ', $user->getNameOrUsername() . ' has been demoted to helper!'); # Redirect back
+            notify()->flash($user->getNameOrUsername() . ' has been demoted to helper!', 'success', [
+    			'timer' => 4000,
+    		]);
+
+            return redirect()->back(); # Redirect back
         } else if ($user->position === 'admin') {
+            notify()->flash('Error.', 'warning', [
+    			'timer' => 4000,
+                'text'  => 'You cannot demote other Administrators! If they must be demoted, do it manually.',
+    		]);
+
             # If the user is an administrator, throw an error saying that you cannot demote administrators!
-            return redirect()->back()->with('dang', 'You cannot demote a nother administrator!'); # Redirect back with an error message!
+            return redirect()->back(); # Redirect back with an error message!
         }
     }
 }

@@ -5,37 +5,40 @@
 @stop
 
 @section('content')
-	<h3>Sign up</h3>
-	<div class="row">
-	    <div class="col-lg-6">
-	        <form class="form-vertical" role="form" method="post" action="{{ route('auth.signup') }}">
-	            <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
-	                <label for="email" class="control-label">Your email address</label>
-	                <input type="text" name="email" class="form-control" id="email" value="{{ Request::old('email') ?: '' }}">
-	                @if ($errors->has('email'))
-						<span class="help-block">{{ $errors->first('email') }}</span>
-	                @endif
-	            </div>
-	            <div class="form-group {{ $errors->has('username') ? 'has-error' : '' }}">
-	                <label for="username" class="control-label">Choose a username</label>
-	                <input type="text" name="username" class="form-control" id="username" value="{{ Request::old('username') ?: '' }}">
-	                @if ($errors->has('username'))
-						<span class="help-block">{{ $errors->first('username') }}</span>
-	                @endif
-	            </div>
-	            <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
-	                <label for="password" class="control-label">Choose a password</label>
-	                <input type="password" name="password" class="form-control" id="password">
-	                @if ($errors->has('password'))
-						<span class="help-block">{{ $errors->first('password') }}</span>
-	                @endif
-	            </div>
-				<p>By signing up, you agree to the <a href="{{ route('guidelines') }}" target="_blank">Terms of Service</a>.</p>
-	            <div class="form-group">
-	                <button type="submit" class="btn btn-primary">Sign up</button>
-	            </div>
-	            <input type="hidden" name="_token" value="{{ Session::token() }}">
-	        </form>
-	    </div>
+	<div class="content" style="overflow-y: hidden !important;">
+		<h3 class="center">Sign up</h3>
+		<div class="row">
+			<div class="col s12 center">
+				<form action="{{ route('auth.signin') }}" method="post">
+					<div class="input-field col s6">
+			          	<i class="material-icons prefix">account_circle</i>
+			          	<input id="icon_prefix email" type="text" value="{{ Request::old('email') ?: '' }}" name="email">
+			          	<label for="icon_prefix">Username or Email</label>
+						@if ($errors->has('email'))
+							<span class="help-block">{{ $errors->first('email') }}</span>
+		                @endif
+			        </div>
+					<div class="input-field col s6">
+			          	<i class="material-icons prefix">memory</i>
+			          	<input id="icon_prefix password" type="password" name="password">
+			          	<label for="icon_prefix">Password</label>
+						@if ($errors->has('password'))
+							<span class="help-block">{{ $errors->first('password') }}</span>
+		                @endif
+			        </div>
+					<p class="center">
+				      	<input type="checkbox" id="test6" checked="checked" />
+				      	<label for="test6">Remember Me</label>
+				    </p>
+					<button type="submit" class="waves-effect waves-light btn">Signin</button>
+					<input type="hidden" name="_token" value="{{ Session::token() }}">
+				</form>
+			</div>
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 	</div>
 @stop

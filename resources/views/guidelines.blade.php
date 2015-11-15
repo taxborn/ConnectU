@@ -5,7 +5,8 @@
 @stop
 
 @section('content')
-	<h3>User Guidelines and ToS</h3>
+	<div class="container">
+		<h3>User Guidelines and ToS</h3>
 		<p>By using the ConnectU.xyz web site ("Service"), or any services of ConnectU ("ConnectU"), you are agreeing to be bound by the following terms and conditions ("Terms of Service"). IF YOU ARE ENTERING INTO THIS AGREEMENT ON BEHALF OF A COMPANY OR OTHER LEGAL ENTITY, YOU REPRESENT THAT YOU HAVE THE AUTHORITY TO BIND SUCH ENTITY, ITS AFFILIATES AND ALL USERS WHO ACCESS OUR SERVICES THROUGH YOUR ACCOUNT TO THESE TERMS AND CONDITIONS, IN WHICH CASE THE TERMS "YOU" OR "YOUR" SHALL REFER TO SUCH ENTITY, ITS AFFILIATES AND USERS ASSOCIATED WITH IT. IF YOU DO NOT HAVE SUCH AUTHORITY, OR IF YOU DO NOT AGREE WITH THESE TERMS AND CONDITIONS, YOU MUST NOT ACCEPT THIS AGREEMENT AND MAY NOT USE THE SERVICES.</p>
 		<p>Violation of any of the terms below will result in the termination of your Account. While ConnectU prohibits such conduct and Content on the Service, you understand and agree that ConnectU cannot be responsible for the Content posted on the Service and you nonetheless may be exposed to such materials. You agree to use the Service at your own risk.</p>
 		<hr>
@@ -62,4 +63,5 @@
 		</ul>
 
 		<em>Last Updated: 10/28/2015 at 5:51 P.M. CST</em>
+	</div>
 @stop

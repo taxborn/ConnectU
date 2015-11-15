@@ -242,7 +242,7 @@ class StatusController extends Controller
                     'text'  => 'You have changed time. You have changed space. You have changed your status.',
                 ]);
 
-				return redirect()->back()-; # Return back
+				return redirect()->back(); # Return back
 			}
 
             notify()->flash('That pencil is not ment for you!', 'warning', [

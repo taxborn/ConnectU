@@ -9,6 +9,9 @@
         // Activate the side menu
         $(".button-collapse").sideNav();
 
+        // Activate Parallax on the home page
+        $('.parallax').parallax();
+
         @if (notify()->ready())
             swal({
                 title: "{!! notify()->message() !!}",

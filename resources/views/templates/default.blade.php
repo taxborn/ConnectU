@@ -11,9 +11,7 @@
 	</head>
 	<body>
 		@include('templates.partials.navigation')
-		<div class="container">
-			@yield('content')
-		</div>
+		@yield('content')
 		@include('templates.partials.footer')
 		@include('templates.partials.scripts')
 	</body>

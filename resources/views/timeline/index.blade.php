@@ -50,31 +50,11 @@
 											<p>
 												<ul>
 													@if($status->edited === 0)
-										            	<li>{{ $status->created_at->diffForHumans() }} <br><br><a href="{{ route('status.like', ['statusId' => $status->id]) }}" class="btn indigo">Like</a>
-															<p class="right">
-											            		&nbsp; {{ $status->likes()->count() }} {{ str_plural('like', $status->likes()->count()) }}
-											            	</p>
-														</li>
+										            	<li>{{ $status->created_at->diffForHumans() }} <br><br><a href="{{ route('status.like', ['statusId' => $status->id]) }}" class="btn indigo right">{{ $status->likes()->count() }} {{ str_plural('like', $status->likes()->count()) }}</a></li>
 										            @else
-														<li>{{ $status->created_at->diffForHumans() }} | <em>Updated: {{ $status->updated_at->diffForHumans() }}</em> <br><br><a href="{{ route('status.like', ['statusId' => $status->id]) }}" class="btn indigo">Like</a>
-															<p class="right">
-											            		&nbsp; {{ $status->likes()->count() }} {{ str_plural('like', $status->likes()->count()) }}
-											            	</p>
-														</li>
+														<li>{{ $status->created_at->diffForHumans() }} | <em>Updated: {{ $status->updated_at->diffForHumans() }}</em> <br><br><a href="{{ route('status.like', ['statusId' => $status->id]) }}" class="btn indigo right">{{ $status->likes()->count() }} {{ str_plural('like', $status->likes()->count()) }}</a></li>
 										            @endif
-													<form class="col s10 right" action="{{ route('status.reply', ['statusId' => $status->id]) }}" method="post">
-														<div class="row">
-															<div class="input-field col s12">
-																<textarea id="textarea1" class="materialize-textarea" name="reply-{{ $status->id }}"></textarea>
-																<label for="textarea1">Reply to this status</label>
-																@if ($errors->has('status'))
-																	<span class="help-block">{{ $errors->first('status') }}</span>
-												            	@endif
-																<button type="submit" class="waves-effect waves-light btn indigo darken-1">Reply</button>
-																<input type="hidden" name="_token" value="{{ Session::token() }}">
-															</div>
-														</div>
-													</form>
+
 												</ul>
 											</p>
 										</span>
@@ -107,17 +87,9 @@
 											<p>
 												<ul>
 													@if($reply->edited === 0)
-										            	<li>{{ $reply->created_at->diffForHumans() }} <br><br><a href="{{ route('status.like', ['statusId' => $reply->id]) }}" class="btn indigo">Like</a>
-															<p class="right">
-											            		&nbsp; {{ $reply->likes()->count() }} {{ str_plural('like', $reply->likes()->count()) }}
-											            	</p>
-														</li>
+										            	<li>{{ $reply->created_at->diffForHumans() }} <br><br><a href="{{ route('status.like', ['statusId' => $reply->id]) }}" class="btn indigo right">{{ $reply->likes()->count() }} {{ str_plural('like', $reply->likes()->count()) }}</a></li>
 										            @else
-														<li>{{ $reply->created_at->diffForHumans() }} | <em>Updated: {{ $reply->updated_at->diffForHumans() }}</em> <br><br><a href="{{ route('status.like', ['statusId' => $reply->id]) }}" class="btn indigo">Like</a>
-															<p class="right">
-											            		&nbsp; {{ $reply->likes()->count() }} {{ str_plural('like', $reply->likes()->count()) }}
-											            	</p>
-														</li>
+														<li>{{ $reply->created_at->diffForHumans() }} | <em>Updated: {{ $reply->updated_at->diffForHumans() }}</em> <br><br><a href="{{ route('status.like', ['statusId' => $reply->id]) }}" class="btn indigo right">{{ $reply->likes()->count() }} {{ str_plural('like', $reply->likes()->count()) }}</a></li>
 										            @endif
 												</ul>
 											</p>
@@ -127,6 +99,30 @@
 							</div>
 						</div>
 						@endforeach
+						<div class="col s11 m11 l11 right">
+							<div class="card-panel grey lighten-5 z-depth-1">
+								<div class="row valign-wrapper">
+									<div class="col s1">
+										<img src="{{ Auth::user()->getAvatarUrl(90) }}" alt="{{ Auth::user()->getNameOrUsername() }}" class="circle responsive-img"> <!-- notice the "circle" class -->
+									</div>
+									<div class="col s11">
+										<form class="" action="{{ route('status.reply', ['statusId' => $status->id]) }}" method="post">
+											<div class="row">
+												<div class="input-field col s12">
+													<textarea id="textarea1" class="materialize-textarea" name="reply-{{ $status->id }}"></textarea>
+													<label for="textarea1">Reply to this status</label>
+													@if ($errors->has('status'))
+														<span class="help-block">{{ $errors->first('status') }}</span>
+													@endif
+													<button type="submit" class="waves-effect waves-light btn indigo darken-1">Reply</button>
+													<input type="hidden" name="_token" value="{{ Session::token() }}">
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
 				@endforeach
 
 				{!! $statuses->render() !!}

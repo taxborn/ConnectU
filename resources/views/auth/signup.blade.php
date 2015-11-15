@@ -6,6 +6,7 @@
 
 @section('content')
 <div class="container">
+	<br>
 	<h3 class="center">Sign up</h3>
 	<div class="row">
 		<div class="col s12 center">
@@ -38,7 +39,7 @@
 					<p class="center">
 						By signing up to ConnectU, you agree to the <a href="{{ route('guidelines') }}">Terms of Service</a>.
 					</p>
-					<button type="submit" class="waves-effect waves-light btn indigo darken-1">Signup</button>
+					<button type="submit" class="waves-effect waves-light btn btn-large indigo darken-1">Signup</button>
 					<input type="hidden" name="_token" value="{{ Session::token() }}">
 				</div>
 			</form>

@@ -6,6 +6,38 @@
 
 @section('content')
 	<div class="row">
+		<!-- User information and statuses -->
+		<div class="col s12 m9 l7">
+			<div class="card-panel grey lighten-5 z-depth-1">
+				<div class="row valign-wrapper">
+					<div class="col s2">
+						<img src="{{ $user->getAvatarUrl(45) }}" alt="{{ $user->getNameOrUsername() }}'s profile'" class="circle responsive-img"> <!-- notice the "circle" class -->
+					</div>
+					<div class="col s10">
+						<span class="black-text">
+							<h4>{{ $user->getNameOrUsername() }}</h4>
+							<p>
+								@if ($user->biography && $user->location)
+									<!-- User specified biography and locations -->
+									{{ $user->getFirstNameOrUsername() }} lives in: <strong>{{ $user->location }}</strong><br>
+									{{ $user->getFirstNameOrUsername() }} says: <strong>{{ $user->biography }}</strong>
+								@elseif ($user->location && $user->biography === NULL)
+									<!-- User specified only location -->
+									{{ $user->getFirstNameOrUsername() }} lives in: {{ $user->location }}
+								@elseif ($user->biography && $user->location === NULL)
+									<!-- User specified only biography -->
+									{{ $user->getFirstNameOrUsername() }} says: {{ $user->biograpy }}<br>
+								@else
+
+								@endif
+							</p>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
 	    <div class="col-lg-8">
 	        <!-- User information and statuses -->
 	        @include('user.partials.userblock')

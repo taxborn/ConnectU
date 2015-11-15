@@ -5,40 +5,49 @@
 @stop
 
 @section('content')
-	<div class="content" style="overflow-y: hidden !important;">
-		<h3 class="center">Sign up</h3>
-		<div class="row">
-			<div class="col s12 center">
-				<form action="{{ route('auth.signin') }}" method="post">
-					<div class="input-field col s6">
-			          	<i class="material-icons prefix">account_circle</i>
-			          	<input id="icon_prefix email" type="text" value="{{ Request::old('email') ?: '' }}" name="email">
-			          	<label for="icon_prefix">Username or Email</label>
-						@if ($errors->has('email'))
-							<span class="help-block">{{ $errors->first('email') }}</span>
-		                @endif
-			        </div>
-					<div class="input-field col s6">
-			          	<i class="material-icons prefix">memory</i>
-			          	<input id="icon_prefix password" type="password" name="password">
-			          	<label for="icon_prefix">Password</label>
-						@if ($errors->has('password'))
-							<span class="help-block">{{ $errors->first('password') }}</span>
-		                @endif
-			        </div>
+<div class="container">
+	<h3 class="center">Sign up</h3>
+	<div class="row">
+		<div class="col s12 center">
+			<form action="{{ route('auth.signup') }}" method="post">
+				<div class="input-field col s12">
+					<i class="material-icons prefix" style="margin-top: 10px;">email</i>
+					<input placeholder="Email" id="icon_prefix email" type="text" value="{{ Request::old('email') ?: '' }}" name="email">
+					<label for="icon_prefix">Your email address</label>
+					@if ($errors->has('email'))
+						<span class="help-block">{{ $errors->first('email') }}</span>
+					@endif
+				</div>
+				<div class="input-field col s12">
+					<i class="material-icons prefix" style="margin-top: 10px;">perm_identity</i>
+					<input placeholder="Username" id="icon_prefix username" type="text" value="{{ Request::old('username') ?: '' }}" name="username">
+					<label for="icon_prefix">Choose a username</label>
+					@if ($errors->has('username'))
+						<span class="help-block">{{ $errors->first('username') }}</span>
+					@endif
+				</div>
+				<div class="input-field col s12">
+					<i class="material-icons prefix" style="margin-top: 10px;">lock</i>
+					<input placeholder="Password" id="icon_prefix password" type="password" value="{{ Request::old('password') ?: '' }}" name="password">
+					<label for="icon_prefix">Create your password</label>
+					@if ($errors->has('password'))
+						<span class="help-block">{{ $errors->first('password') }}</span>
+					@endif
+				</div>
+				<div class="col s12">
 					<p class="center">
-				      	<input type="checkbox" id="test6" checked="checked" />
-				      	<label for="test6">Remember Me</label>
-				    </p>
-					<button type="submit" class="waves-effect waves-light btn">Signin</button>
+						By signing up to ConnectU, you agree to the <a href="{{ route('guidelines') }}">Terms of Service</a>.
+					</p>
+					<button type="submit" class="waves-effect waves-light btn indigo darken-1">Signup</button>
 					<input type="hidden" name="_token" value="{{ Session::token() }}">
-				</form>
-			</div>
+				</div>
+			</form>
 		</div>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
 	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+</div>
 @stop

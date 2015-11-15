@@ -13,6 +13,7 @@
 		</div>
 	</div>
 	<div class="row">
+		<br>
 		<div class="col s4 center">
 			<i class="material-icons" style="font-size: 60px;">flash_on</i><br>
 			<strong>Powerful and Light</strong>
@@ -41,6 +42,7 @@
 		</div>
 	</div>
 	<div class="row">
+		<br>
 		<div class="col s6 center">
 			<i class="material-icons" style="font-size: 60px;">create</i><br>
 			<strong>Contribute to ConnectU</strong>

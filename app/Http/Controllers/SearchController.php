@@ -15,8 +15,13 @@ class SearchController extends Controller
 
 		# Check if there is any input
 		if(!$query) {
+			notify()->flash('Error.', 'warning', [
+				'timer' => 4000,
+				'text'  => 'Please enter something into the searchbox!',
+			]);
+
             # Return back if the user did not put anything into the text box
-			return redirect()->back()->with('warn', 'Please enter something into the searchbox!');
+			return redirect()->back();
 		}
 
 		# Get all the results LIKE the query and put them into the $users variable

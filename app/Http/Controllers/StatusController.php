@@ -26,7 +26,12 @@ class StatusController extends Controller
         # Reload the last_activity time
         Auth::user()->reloadActivityTime();
 
-        return redirect()->back()->with('succ', 'Your status was posted!'); # Return back
+        notify()->flash('Your word is out!', 'success', [
+			'timer' => 4500,
+			'text'  => 'Your status was posted!',
+		]);
+
+        return redirect()->back(); # Return back
     }
 
     public function postReply(Request $request, $statusId)
@@ -63,7 +68,12 @@ class StatusController extends Controller
         # Reload the users last_activity time
         Auth::user()->reloadActivityTime();
 
-        return redirect()->back()->with('succ', 'Your reply was posted.'); # Return back
+        notify()->flash('Your word is out!', 'success', [
+			'timer' => 4500,
+			'text'  => 'Your reply was posted!',
+		]);
+
+        return redirect()->back(); # Return back
     }
 
     public function getLike($statusId)
@@ -78,7 +88,12 @@ class StatusController extends Controller
 
         # Check if the user has already liked a status
         if (Auth::user()->hasLikedStatus($status)) {
-            return redirect()->back()->with('warn', 'You cannot re-like a stauts!');
+            notify()->flash('There seems to be a problem.', 'warning', [
+    			'timer' => 4500,
+    			'text'  => 'You cannot like a status again!',
+    		]);
+
+            return redirect()->back();
         }
 
         # Create the like instance and save it to the user
@@ -111,12 +126,22 @@ class StatusController extends Controller
             # Relaod the users last_activity time
             Auth::user()->reloadActivityTime();
 
-            return redirect()->back()->with('succ', 'You have deleted the post.'); # Return back
+            notify()->flash('It\'s gone..', 'success', [
+    			'timer' => 4500,
+    			'text'  => 'The status was deleted.',
+    		]);
+
+            return redirect()->back(); # Return back
         }
 
         # Check if the logged in users id is equal to the original posters id
         if ($status->user_id !== Auth::user()->id) {
-            return redirect()->back()->with('warn', 'You cannot delete a status that isn\'t yours!'); # Retrun back with an error message
+            notify()->flash('How did you do that?!', 'error', [
+    			'timer' => 4500,
+    			'text'  => 'You cannot delete a status that is not yours!',
+    		]);
+
+            return redirect()->back(); # Retrun back with an error message
         }
 
         # Delete the status
@@ -127,7 +152,17 @@ class StatusController extends Controller
         # Reload the users last_activity time
         Auth::user()->reloadActivityTime();
 
-        return redirect()->route('home')->with('succ', 'Your post has been deleted.'); # Return back
+        notify()->flash('Your word is out!', 'success', [
+			'timer' => 4500,
+			'text'  => 'Your status was posted!',
+		]);
+
+        notify()->flash('It\'s gone...', 'success', [
+			'timer' => 4500,
+			'text'  => 'Your status was deleted! Why did you post it in the first place?',
+		]);
+
+        return redirect()->route('home'); # Return back
     }
 
     public function getEdit($statusId)
@@ -137,11 +172,21 @@ class StatusController extends Controller
 
         # Check if there is a status present
         if (!$status) {
-            return redirect()->back()->with('warn', 'Status not found!');
+            notify()->flash('Where did you find this?', 'warning', [
+    			'timer' => 4500,
+    			'text'  => 'That status was not found. How did you get here?',
+    		]);
+
+            return redirect()->back();
         }
 
         if ($status->deleted === 1) {
-            return redirect()->back()->with('warn', 'Status not found!');
+            notify()->flash('Where did you find this?', 'warning', [
+                'timer' => 4500,
+                'text'  => 'That status was not found. How did you get here?',
+            ]);
+
+            return redirect()->back();
         }
 
         # Check if the user is a moderator and up
@@ -154,7 +199,12 @@ class StatusController extends Controller
             return view('status.edit')->with('status', $status); # Goto the status edit route with $status
         }
 
-        return redirect()->back()->with('warn', 'You cannot edit other users statuses!'); # Redirect back with an error message
+        notify()->flash('Where did you find this?', 'warning', [
+            'timer' => 4500,
+            'text'  => 'You cannot edit other users statuses. How did you get this message though...',
+        ]);
+
+        return redirect()->back(); # Redirect back with an error message
     }
 
     public function postEdit(Request $request, $statusId)
@@ -164,7 +214,12 @@ class StatusController extends Controller
 
         # Check if there is a status present
 		if(!$status) {
-			return redirect()->back()->with('warn', 'Status not found!');
+            notify()->flash('Where did you find this?', 'warning', [
+                'timer' => 4500,
+                'text'  => 'That status was not found. How did you get here?',
+            ]);
+
+			return redirect()->back();
 		}
 
         # Check if the user is not the same as the original poster
@@ -182,10 +237,20 @@ class StatusController extends Controller
                 # Reload the users last_activity time
 				Auth::user()->reloadActivityTime();
 
-				return redirect()->back()->with('succ', 'Your status has been updated!'); # Return back
+                notify()->flash('Congratulations!', 'success', [
+                    'timer' => 4500,
+                    'text'  => 'You have changed time. You have changed space. You have changed your status.',
+                ]);
+
+				return redirect()->back()-; # Return back
 			}
 
-			return redirect()->back()->with('warn', 'You cannot edit a status that isn\'t yours!'); # Retrun back with an error message
+            notify()->flash('That pencil is not ment for you!', 'warning', [
+                'timer' => 4500,
+                'text'  => 'You shall not edit users statuses!',
+            ]);
+
+			return redirect()->back(); # Retrun back with an error message
 		}
 
         # Update the status
@@ -197,6 +262,11 @@ class StatusController extends Controller
 
         # Reload the users last_activity time
 		Auth::user()->reloadActivityTime();
+
+        notify()->flash('Congratulations!', 'success', [
+            'timer' => 4500,
+            'text'  => 'You have changed time. You have changed space. You have changed your status.',
+        ]);
 
 		return redirect()->back()->with('succ', 'Your status has been updated!'); # Return back
 	}

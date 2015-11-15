@@ -16,7 +16,12 @@ class ProfileController extends Controller
 
         # Check if there is a user present
         if (!$user) {
-            return redirect()->route('home')->with('warn', 'That user could not be found.');
+            notify()->flash('Error.', 'error', [
+    			'timer' => 4000,
+    			'text'  => 'That user could not be found.',
+    		]);
+
+            return redirect()->route('home');
         }
 
         # Get the users statues
@@ -29,7 +34,12 @@ class ProfileController extends Controller
                 ->with('authUserIsFriend', Auth::user()->isFriendsWith($user)); # Returns the profile home view
         }
 
-        return redirect()->back()->with('dang', 'You need to be signed in to view user profiles.'); # Redirects back if the user is not signed in and is trying to view a user profile
+        notify()->flash('Uh-oh..', 'warning', [
+			'timer' => 6000,
+			'text'  => 'You need to be signed in to view users profiles.',
+		]);
+
+        return redirect()->back(); # Redirects back if the user is not signed in and is trying to view a user profile
     }
 
     public function getEdit()
@@ -63,7 +73,12 @@ class ProfileController extends Controller
         # Reload the users last_activity time
         Auth::user()->reloadActivityTime();
 
-        return redirect()->back()->with('succ', 'Your profile has been updated!'); # Return back
+        notify()->flash('Success!', 'success', [
+			'timer' => 4000,
+			'text'  => 'Your profile has been updated!',
+		]);
+
+        return redirect()->back(); # Return back
     }
 
     public function getDelete()
@@ -92,10 +107,20 @@ class ProfileController extends Controller
             # Log the user out
             Auth::logout();
 
-            return redirect()->route('home')->with('succ', 'Your account ahs been deleted. Come back soon!'); # Go home
+            notify()->flash('Success!', 'success', [
+    			'timer' => 4000,
+    			'text'  => 'Your account has been deleted. Come back soon!',
+    		]);
+
+            return redirect()->route('home'); # Go home
         }
 
-        return redirect()->back()->with('warn', 'Your password was incorrect. Try again.'); # Return back with an error message
+        notify()->flash('Correction..', 'error', [
+			'timer' => 4000,
+			'text'  => 'Your password appears to be incorrect. Try again.',
+		]);
+
+        return redirect()->back(); # Return back with an error message
     }
 
     public function getEditPassword()
@@ -124,9 +149,19 @@ class ProfileController extends Controller
             # Update the users last_activity time
             Auth::user()->reloadActivityTime();
 
-            return redirect()->route('home')->with('succ', 'Your password was changed!'); # Return home
+            notify()->flash('Everything passes!', 'success', [
+    			'timer' => 5000,
+    			'text'  => 'Your password has been changed. Log out and log back in to test it out!',
+    		]);
+
+            return redirect()->route('home'); # Return home
         }
 
-        return redirect()->back()->with('warn', 'Your password was incorrect.'); # Return back
+        notify()->flash('Something went wrong...', 'error', [
+            'timer' => 5000,
+            'text'  => 'Your password was incorrect. Try again!',
+        ]);
+
+        return redirect()->back(); # Return back
     }
 }

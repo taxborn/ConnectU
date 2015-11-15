@@ -98,6 +98,11 @@ class FriendController extends Controller
         # Update the users last_activity time
         Auth::user()->reloadActivityTime();
 
+        notify()->flash('Success!', 'success', [
+            'timer' => 4000,
+            'text'  => 'You are now friends with ' . $user->getFirstNameOrUsername(),
+        ]);
+
         return redirect()->route('profile.index', ['username' => $username])->with('succ', 'You are now friends with ' . $user->getFirstNameOrUsername()); # Return to the profile home page
     }
 
@@ -108,12 +113,22 @@ class FriendController extends Controller
 
         # Check if there is a user present
         if (!$user) {
-            return redirect()->back()->with('warn', 'That user could not be found.');
+            notify()->flash('Error.', 'warning', [
+    			'timer' => 4000,
+                'text'  => 'That user could not be found. Please try again.',
+    		]);
+
+            return redirect()->back(); # Return back with an error
         }
 
         # Check if there is a friend request pending
         if (Auth::user()->hasFriendRequestPending($user) || $user->hasFriendRequestPending(Auth::user())) {
-            return redirect()->route('profile.index', ['username' => $username])->with('warn', 'There is a friend request pending, accept it to continue.'); # Return the the profile home page with an error message
+            notify()->flash('Error.', 'warning', [
+    			'timer' => 4000,
+                'text'  => 'There is a friend request already pending. Accept it to continue.',
+    		]);
+
+            return redirect()->route('profile.index', ['username' => $username]); # Return the the profile home page with an error message
         }
 
         # Remove the friendship

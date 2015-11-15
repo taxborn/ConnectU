@@ -25,7 +25,7 @@
 			<li>Inactivity over 1 (one) year will result in account deletion.</li>
 		</ol>
 		<hr>
-		<h3>B: General Conditions and others</h3>
+		<h3>B: General Conditions and Guidelines</h3>
 		<ol>
 			<li>Your use of the Service is at your sole risk. The service is provided on an "as is" and "as available" basis.</li>
 			<li>Support for ConnectU services is only available in English, via email.</li>

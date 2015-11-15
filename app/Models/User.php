@@ -141,7 +141,7 @@ class User extends Model implements AuthenticatableContract
 
     public function addFriend(User $user)
     {
-        $this->friendOf()->attach($user->id); # Add a friendship between the current user and the $user
+        $this->friendsOf()->attach($user->id); # Add a friendship between the current user and the $user
     }
 
     public function removeFriend(User $user)
@@ -156,7 +156,7 @@ class User extends Model implements AuthenticatableContract
             return redirect()->back()->with('dang', 'That is not a real user!');
         }
 
-        $this->friendOf()->detach($user->id);
+        $this->friendsOf()->detach($user->id);
         $this->friendsOfMine()->detach($user->id);
     }
 

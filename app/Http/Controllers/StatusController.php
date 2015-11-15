@@ -268,6 +268,6 @@ class StatusController extends Controller
             'text'  => 'You have changed time. You have changed space. You have changed your status.',
         ]);
 
-		return redirect()->back()->with('succ', 'Your status has been updated!'); # Return back
+		return redirect()->back(); # Return back
 	}
 }

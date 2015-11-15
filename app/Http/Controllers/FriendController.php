@@ -103,7 +103,7 @@ class FriendController extends Controller
             'text'  => 'You are now friends with ' . $user->getFirstNameOrUsername(),
         ]);
 
-        return redirect()->route('profile.index', ['username' => $username])->with('succ', 'You are now friends with ' . $user->getFirstNameOrUsername()); # Return to the profile home page
+        return redirect()->route('profile.index', ['username' => $username]); # Return to the profile home page
     }
 
     public function getRemove($username)
@@ -137,6 +137,11 @@ class FriendController extends Controller
         # Reload the users last_activity time
         Auth::user()->reloadActivityTime();
 
-        return redirect()->route('profile.index', ['username' => $username])->with('succ', 'You and ' . $user->getFirstNameOrUsername() . ' are no longer friends.');
+        notify()->flash('What happened?!', 'success', [
+            'timer' => 4500,
+            'text'  => 'You and ' . $user->getFirstNameOrUsername() . ' are no longer friends.. :(',
+        ]);
+
+        return redirect()->route('profile.index', ['username' => $username]);
     }
 }

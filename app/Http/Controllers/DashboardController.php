@@ -78,7 +78,7 @@ class DashboardController extends Controller
 			'timer' => 4000,
 		]);
 
-        return redirect()->route('admin.home')->with('succ', $user->getNameOrUsername() . '\'s profile has been updated!'); # Returns the admin home view: /resources/views/admin/home.blade.php
+        return redirect()->route('admin.home'); # Returns the admin home view: /resources/views/admin/home.blade.php
     }
 
     public function metrics()

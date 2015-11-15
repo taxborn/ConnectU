@@ -67,7 +67,7 @@ class AuthController extends Controller
 			]);
 
 			# Return back with the message that they could not be signed in.
-			return redirect()->back()->with('dang', 'Could not sign you in with those details.');
+			return redirect()->back();
 		}
 
         # Get the current time and assign it to the variable $current_time

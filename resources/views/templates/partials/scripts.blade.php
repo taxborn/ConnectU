@@ -12,6 +12,9 @@
         // Activate Parallax on the home page
         $('.parallax').parallax();
 
+        // Activate material select
+        $('select').material_select();
+
         @if (notify()->ready())
             swal({
                 title: "{!! notify()->message() !!}",

@@ -8,97 +8,82 @@
 	<h3>Update your profile</h3>
 
 	<div class="row">
-	    <div class="col-lg-6">
-	        <form class="form-vertical" role="form" method="post" action="{{ route('profile.edit') }}">
-	            <div class="row">
-	                <div class="col-lg-6">
-	                    <div class="form-group {{ $errors->has('first_name') ? 'has-error' : '' }}">
-	                        <label for="first_name" class="control-label">First name</label>
-	                        <input type="text" name="first_name" class="form-control" id="first_name" value="{{ Request::old('first_name') ?: Auth::user()->first_name }}">
-	                    	@if ($errors->has('first_name'))
-								<span class="help-block">{{ $errors->first('first_name') }}</span>
-	                    	@endif
-	                    </div>
-	                </div>
-	                <div class="col-lg-6">
-	                    <div class="form-group {{ $errors->has('last_name') ? 'has-error' : '' }}">
-	                        <label for="last_name" class="control-label">Last name</label>
-	                        <input type="text" name="last_name" class="form-control" id="last_name" value="{{ Request::old('last_name') ?: Auth::user()->last_name }}">
-	                    	@if ($errors->has('last_name'))
-								<span class="help-block">{{ $errors->first('last_name') }}</span>
-	                    	@endif
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="row">
-	                <div class="col-lg-6">
-	                    <div class="form-group {{ $errors->has('username') ? 'has-error' : '' }}">
-	                        <label for="username" class="control-label">Username</label>
-	                        <input type="text" name="username" class="form-control" id="username" value="{{ Request::old('username') ?: Auth::user()->username }}">
-	                    	@if ($errors->has('username'))
-								<span class="help-block">{{ $errors->first('username') }}</span>
-	                    	@endif
-	                    </div>
-	                </div>
-	                <div class="col-lg-6">
-	                    <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
-	                        <label for="email" class="control-label">Email</label>
-	                        <input type="text" name="email" class="form-control" id="email" value="{{ Request::old('email') ?: Auth::user()->email }}">
-	                    	@if ($errors->has('email'))
-				+				<span class="help-block">{{ $errors->first('email') }}</span>
-	                    	@endif
-	                    </div>
-	                </div>
-	            </div>
+		<div class="col s12 m8 l6">
+			<form action="{{ route('profile.edit') }}" method="post">
 				<div class="row">
-					<div class="col-lg-6">
-						<label for="location" class="control-label">Location</label>
-						<input type="text" name="location" class="form-control" id="location" value="{{ Request::old('location') ?: Auth::user()->location }}">
+					<div class="input-field col s6">
+						<i class="material-icons prefix" style="margin-top: 10px;">account_circle</i>
+						<input placeholder="Last Name" id="icon_prefix last_name" type="text" value="{{ Request::old('first_name') ?: Auth::user()->first_name }}" name="first_name">
+						<label for="icon_prefix">First Name</label>
+						@if ($errors->has('first_name'))
+							<span class="help-block">{{ $errors->first('first_name') }}</span>
+						@endif
+					</div>
+					<div class="input-field col s6">
+						<i class="material-icons prefix" style="margin-top: 10px;">account_circle</i>
+						<input placeholder="Last Name" id="icon_prefix last_name" type="text" value="{{ Request::old('last_name') ?: Auth::user()->last_name }}" name="last_name">
+						<label for="icon_prefix">Last Name</label>
+						@if ($errors->has('last_name'))
+							<span class="help-block">{{ $errors->first('last_name') }}</span>
+						@endif
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<i class="material-icons prefix" style="margin-top: 10px;">assignment_ind</i>
+						<input placeholder="Username" id="icon_prefix username" type="text" value="{{ Request::old('username') ?: Auth::user()->username }}" name="username">
+						<label for="icon_prefix">Username</label>
+						@if ($errors->has('username'))
+							<span class="help-block">{{ $errors->first('username') }}</span>
+						@endif
+					</div>
+					<div class="input-field col s6">
+						<i class="material-icons prefix" style="margin-top: 10px;">email</i>
+						<input placeholder="Email" id="icon_prefix email" type="text" value="{{ Request::old('email') ?: Auth::user()->email }}" name="email">
+						<label for="icon_prefix">Email</label>
+						@if ($errors->has('email'))
+							<span class="help-block">{{ $errors->first('email') }}</span>
+						@endif
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<i class="material-icons prefix" style="margin-top: 10px;">location_on</i>
+						<input placeholder="Location" id="icon_prefix location" type="text" value="{{ Request::old('location') ?: Auth::user()->location }}" name="location">
+						<label for="icon_prefix">Location</label>
 						@if ($errors->has('location'))
 							<span class="help-block">{{ $errors->first('location') }}</span>
 						@endif
 					</div>
-					<div class="col-lg-6">
-						<label for="sex">Sex</label>
-						<select class="form-control" name="sex">
-							@if (Auth::user()->sex === 'male')
-								<option value="male">Male</option>
-								<option value="female">Female</option>
-							@elseif (Auth::user()->sex === 'female')
-								<option value="female">Female</option>
-								<option value="male">Male</option>
-							@else
-								<option value="not-specified">Not Specified</option>
-								<option value="male">Male</option>
-								<option value="female">Female</option>
-							@endif
+					<div class="input-field col s6">
+						<select>
+							<option value="not-specified" disabled selected>{{ Auth::user()->sex !== NULL ? Auth::user()->sex : 'Choose your gender.' }}</option>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
 						</select>
+						<label>Sex</label>
+						@if ($errors->has('sex'))
+							<span class="help-block">{{ $errors->first('sex') }}</span>
+						@endif
 					</div>
 				</div>
-	            <div class="form-group {{ $errors->has('biography') ? 'has-error' : '' }}">
-	                <label for="biography" class="control-label">Biography</label>
-	                <input type="text" name="biography" class="form-control" id="biography" value="{{ Request::old('biography') ?: Auth::user()->biography }}">
-	            	@if ($errors->has('biography'))
+				<div class="input-field col s12">
+					<i class="material-icons prefix" style="margin-top: 10px;">chat</i>
+					<input placeholder="Biography" id="icon_prefix biography" type="text" value="{{ Request::old('biograpy') ?: Auth::user()->biography }}" name="biography">
+					<label for="icon_prefix">Biography</label>
+					@if ($errors->has('biographt'))
 						<span class="help-block">{{ $errors->first('biography') }}</span>
-	                @endif
-	            </div>
-	            <div class="form-group">
-	                <button type="submit" class="btn btn-primary">Update</button>
-	            </div>
-	            <input type="hidden" name="_token" value="{{ Session::token() }}">
-	        </form>
-	    </div>
-		<div class="col-lg-6">
-			<div class="dropdown">
-				<button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-					Advanced Options&nbsp;&nbsp;
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						<li><a href="{{ route('profile.password', ['username' => Auth::user()->username]) }}">Change password</a></li>
-						<li><a href="{{ route('profile.delete', ['username' => Auth::user()->username]) }}">Delete account</a></li>
-				</ul>
-			</div>
+					@endif
+				</div>
+			</form>
+		</div>
+		<div class="col s12 m4 l6">
+			<a class="dropdown-button waves-effect waves-light btn col s12" href="#" data-activates="dropdown-edit"><i class="material-icons left">vpn_key</i>Advanced Options</a>
+			<!-- Dropdown Structure -->
+			<ul id='dropdown-edit' class='dropdown-content'>
+				<li><a href="#">Delete</a></li>
+				<li><a href="#">Edit</a></li>
+			</ul>
 		</div>
 	</div>
 @stop

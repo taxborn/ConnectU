@@ -20,40 +20,56 @@ class Status extends Model
      * @var array
      */
     protected $fillable = [
-        'body', # Status Body
+        'body',
     ];
 
+    /**
+     * Gets the user that the status belongs to
+     *
+     * Uses a belongsTo relationship to determine what user the status belongs To
+     *
+     * @return void
+     */
     public function user()
     {
-        # Make sure that it is a user posting a status
         return $this->belongsTo('ConnectU\Models\User', 'user_id');
     }
 
+    /**
+     * Gets every status that is not a reply
+     *
+     * Checks to see that the 'parent_id' is NULL and that the status is not deleted
+     *
+     * @return void
+     */
     public function scopeNotReply($query)
     {
-        # If the user is a moderator or an administrator, show ALL statuses even deleted ones
-        if (Auth::user()->isModAndUp(Auth::user())) {
-            return $query->whereNull('parent_id');
-        }
-
-        # Else, show statuses that are not deleted
         return $query->whereNull('parent_id')->where('deleted', 0);
     }
 
+    /**
+     * Gets all statuses that are replies
+     *
+     * Gets the statuses that are replies and that parent_id is not NULL using
+     * a hasMany relationship and that the status is not deleted.
+     *
+     * @return void
+     */
     public function replies()
     {
-        # If the user is a moderator or an administrator, show ALL replies even deleted ones
-        if (Auth::user()->isModAndUp(Auth::user())) {
-            return $this->hasMany('ConnectU\Models\Status', 'parent_id');
-        }
-
-        # Else, show replies that are not deleted
         return $this->hasMany('ConnectU\Models\Status', 'parent_id')->where('deleted', 0);
     }
 
+    /**
+     * Gets the likes of a status
+     *
+     * Uses a morphMany polymorph to determine what likes that is attached to the
+     * Status.
+     *
+     * @return void
+     */
     public function likes()
     {
-        # Get the likes from a status
         return $this->morphMany('ConnectU\Models\Like', 'likeable');
     }
 }

@@ -20,7 +20,7 @@
 					@endif
 				</div>
 				<div class="input-field col s12">
-					<i class="material-icons prefix" style="margin-top: 10px;">perm_identity</i>
+					<i class="material-icons prefix" style="margin-top: 10px;">face</i>
 					<input placeholder="Username" id="icon_prefix username" type="text" value="{{ Request::old('username') ?: '' }}" name="username">
 					<label for="icon_prefix">Choose a username</label>
 					@if ($errors->has('username'))
@@ -28,7 +28,7 @@
 					@endif
 				</div>
 				<div class="input-field col s12">
-					<i class="material-icons prefix" style="margin-top: 10px;">lock</i>
+					<i class="material-icons prefix" style="margin-top: 10px;">memory</i>
 					<input placeholder="Password" id="icon_prefix password" type="password" value="{{ Request::old('password') ?: '' }}" name="password">
 					<label for="icon_prefix">Create your password</label>
 					@if ($errors->has('password'))

@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-	<h3>Update your profile</h3>
+	<h3 class="center">Update your profile</h3>
 
 	<div class="row">
 		<div class="col s12 m8 l6">
@@ -56,12 +56,12 @@
 						@endif
 					</div>
 					<div class="input-field col s6">
-						<select>
-							<option value="not-specified" disabled selected>{{ Auth::user()->sex !== NULL ? Auth::user()->sex : 'Choose your gender.' }}</option>
+						<select name="sex">
+							<option value="not-specified" disabled selected>{{ Auth::user()->sex !== NULL ? ucwords(Auth::user()->sex) : 'Choose your gender.' }}</option>
 							<option value="male">Male</option>
 							<option value="female">Female</option>
 						</select>
-						<label>Sex</label>
+						<label>Gender</label>
 						@if ($errors->has('sex'))
 							<span class="help-block">{{ $errors->first('sex') }}</span>
 						@endif
@@ -71,18 +71,24 @@
 					<i class="material-icons prefix" style="margin-top: 10px;">chat</i>
 					<input placeholder="Biography" id="icon_prefix biography" type="text" value="{{ Request::old('biograpy') ?: Auth::user()->biography }}" name="biography">
 					<label for="icon_prefix">Biography</label>
-					@if ($errors->has('biographt'))
+					@if ($errors->has('biography'))
 						<span class="help-block">{{ $errors->first('biography') }}</span>
 					@endif
 				</div>
+				<div class="col s12">
+					<button class="btn waves-effect waves-light center col s12 indigo darken-2" type="submit" name="action">Submit
+						<i class="material-icons right">send</i>
+					</button>
+				</div>
+				<input type="hidden" name="_token" value="{{ Session::token() }}">
 			</form>
 		</div>
 		<div class="col s12 m4 l6">
 			<a class="dropdown-button waves-effect waves-light btn col s12" href="#" data-activates="dropdown-edit"><i class="material-icons left">vpn_key</i>Advanced Options</a>
 			<!-- Dropdown Structure -->
 			<ul id='dropdown-edit' class='dropdown-content'>
-				<li><a href="#">Delete</a></li>
-				<li><a href="#">Edit</a></li>
+				<li><a href="{{ route('profile.delete', ['username' => Auth::user()->username]) }}">Delete your account</a></li>
+				<li><a href="{{ route('profile.password', ['username' => Auth::user()->username]) }}">Change your password</a></li>
 			</ul>
 		</div>
 	</div>

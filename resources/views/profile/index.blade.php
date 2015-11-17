@@ -185,7 +185,7 @@
 								@endif
 								<hr>
 								@if (!$user->friends()->count())
-									<p class="text-center">{{ $user->getFirstNameOrUsername() }} has no friends<./p>
+									<p class="text-center">{{ $user->getFirstNameOrUsername() }} has no friends</p>
 								@else
 									@foreach ($user->friends() as $userb)
 										<div class="row">

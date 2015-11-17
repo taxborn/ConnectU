@@ -12,7 +12,7 @@
 			<div class="col s12 center">
 				<form action="{{ route('auth.signin') }}" method="post">
 					<div class="input-field col s12 m10 l8">
-			          	<i class="material-icons prefix" style="margin-top: 10px;">account_circle</i>
+			          	<i class="material-icons prefix" style="margin-top: 10px;">face</i>
 			          	<input placeholder="Username or Email" id="icon_prefix email" type="text" value="{{ Request::old('email') ?: '' }}" name="email">
 			          	<label for="icon_prefix">Username or Email</label>
 						@if ($errors->has('email'))

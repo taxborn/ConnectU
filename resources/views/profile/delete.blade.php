@@ -5,46 +5,36 @@
 @stop
 
 @section('content')
-	<h3>Delete your account</h3>
-	<em>Warning: This action is irreversible.</em>
+	<h3 class="center">Delete your account</h3>
+	<p class="center">Warning: This action is irreversible.</p>
 	<br>
 	<br>
 	<div class="row">
-	    <div class="col-lg-6">
-	        <form class="form-vertical" role="form" method="post" action="{{ route('profile.delete') }}">
-	            <div class="row">
-	                <div class="col-lg-6">
-	                    <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
-	                        <label for="password" class="control-label">Your password</label>
-	                        <input type="password" name="password" class="form-control" id="password">
-	                    	@if ($errors->has('password'))
-								<span class="help-block">{{ $errors->first('password') }}</span>
-	                    	@endif
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirm-modal">Delete Account</button>
-					<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									<h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
-								</div>
-								<div class="modal-body">
-									This action will <em>permanently</em> delete your account and this action is not reverseable. Use with caution.
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									<button type="submit" class="btn btn-danger">Delete Account</button>
-								</div>
-							</div>
-						</div>
+		<div class="col s3">
+			&nbsp;
+		</div>
+		<div class="col s6">
+			<form action="{{ route('profile.delete') }}" method="post">
+				<div class="row">
+					<div class="input-field col s12">
+						<i class="material-icons prefix" style="margin-top: 10px;">build</i>
+						<input placeholder="Your password" id="icon_prefix password" type="password" name="password">
+						<label for="icon_prefix">Password</label>
+						@if ($errors->has('password'))
+							<span class="help-block">{{ $errors->first('password') }}</span>
+						@endif
 					</div>
-	            </div>
-	            <input type="hidden" name="_token" value="{{ Session::token() }}">
-	        </form>
-	    </div>
+					<div class="col s12">
+						<button class="btn waves-effect waves-light center col s12 indigo darken-2" type="submit" name="action">Submit
+							<i class="material-icons right">send</i>
+						</button>
+					</div>
+				</div>
+				<input type="hidden" name="_token" value="{{ Session::token() }}">
+			</form>
+		</div>
 	</div>
+		<br>
+		<br>
+		<br>
 @stop

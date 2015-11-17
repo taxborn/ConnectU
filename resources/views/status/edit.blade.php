@@ -28,8 +28,12 @@
 			<i class="material-icons" style="font-size: 60px;">favorite</i><br>
 			<strong>Likes</strong>
 			<p>
-				{{ $x = ($status->likes()->count()) / (Auth::user()->friends()->count()) }}
-				Your post has {{ $status->likes()->count() }} out of {{ Auth::user()->friends()->count() }} possible likes! That is {{ sprintf("%.2f%%", $x * 100) }}!
+				@if (Auth::user()->friends()->count() === 0)
+					You have no friends currently, make some to see thse statistics!
+				@else
+					{{ $x = ($status->likes()->count()) / (Auth::user()->friends()->count()) }}
+					Your post has {{ $status->likes()->count() }} out of {{ Auth::user()->friends()->count() }} possible likes! That is {{ sprintf("%.2f%%", $x * 100) }}!
+				@endif
 			</p>
 		</div>
 		<div class="col s6 center">

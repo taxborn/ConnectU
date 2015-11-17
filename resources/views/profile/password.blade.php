@@ -5,50 +5,53 @@
 @stop
 
 @section('content')
-	<h3>Change your Password</h3>
+	<h3 class="center">Change your Password</h3>
 	<br>
 	<br>
 	<div class="row">
-	    <div class="col-lg-6">
-	        <form class="form-vertical" role="form" method="post" action="{{ route('profile.password') }}">
-	            <div class="row">
-	                <div class="col-lg-6">
-	                    <div class="form-group {{ $errors->has('oldpassword') ? 'has-error' : '' }}">
-	                        <label for="oldpassword" class="control-label">Your old password</label>
-	                        <input type="password" name="oldpassword" class="form-control" id="oldpassword">
-	                    	@if ($errors->has('oldpassword'))
-								<span class="help-block">{{ $errors->first('oldpassword') }}</span>
-	                    	@endif
-	                    </div>
-	                </div>
-	            </div>
-				<div class="row">
-	                <div class="col-lg-6">
-	                    <div class="form-group {{ $errors->has('newpassword') ? 'has-error' : '' }}">
-	                        <label for="newpassword" class="control-label">Your new password</label>
-	                        <input type="password" name="newpassword" class="form-control" id="newpassword">
-	                    	@if ($errors->has('newpassword'))
-								<span class="help-block">{{ $errors->first('newpassword') }}</span>
-	                    	@endif
-	                    </div>
-	                </div>
-	            </div>
-				<div class="row">
-	                <div class="col-lg-6">
-	                    <div class="form-group {{ $errors->has('newpassword2') ? 'has-error' : '' }}">
-	                        <label for="newpassword2" class="control-label">Your new password(again)</label>
-	                        <input type="password" name="newpassword2" class="form-control" id="newpassword2">
-	                    	@if ($errors->has('newpassword2'))
-								<span class="help-block">{{ $errors->first('newpassword2') }}</span>
-	                    	@endif
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <button type="submit" class="btn btn-primary">Change Password</button>
-	            </div>
-	            <input type="hidden" name="_token" value="{{ Session::token() }}">
-	        </form>
-	    </div>
+		<div class="col s3">
+			&nbsp;
+		</div>
+		<div class="col s6">
+			<form action="{{ route('profile.password') }}" method="post">
+				<div class="col s12">
+					<div class="input-field col s12">
+						<i class="material-icons prefix" style="margin-top: 10px;">build</i>
+						<input placeholder="Your old password" id="icon_prefix password" type="password" name="oldpassword">
+						<label for="icon_prefix">Old password</label>
+						@if ($errors->has('oldpassword'))
+							<span class="help-block">{{ $errors->first('oldpassword') }}</span>
+						@endif
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s12">
+						<i class="material-icons prefix" style="margin-top: 10px;">build</i>
+						<input placeholder="Your New Password" id="icon_prefix newpassword" type="password" name="newpassword">
+						<label for="icon_prefix">New password</label>
+						@if ($errors->has('newpassword'))
+							<span class="help-block">{{ $errors->first('newpassword') }}</span>
+						@endif
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s12">
+						<i class="material-icons prefix" style="margin-top: 10px;">build</i>
+						<input placeholder="Your New Password(again)" id="icon_prefix newpassword" type="password" name="newpassword2">
+						<label for="icon_prefix">New password(again)</label>
+						@if ($errors->has('newpassword2'))
+							<span class="help-block">{{ $errors->first('newpassword2') }}</span>
+						@endif
+					</div>
+				</div>
+				<div class="col s12">
+					<button class="btn waves-effect waves-light center col s12 indigo darken-2" type="submit" name="action">Submit
+						<i class="material-icons right">send</i>
+					</button>
+				</div>
+				<input type="hidden" name="_token" value="{{ Session::token() }}">
+			</form>
+		</div>
 	</div>
+	<br>
 @stop

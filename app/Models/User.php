@@ -217,6 +217,7 @@ class User extends Model implements AuthenticatableContract
      * Using the count of friendRequestsPending(), where the users id is present, if it
      * is 1, then it returns true, else returns false
      *
+     * @param $user - User model
      * @return boolean
      */
     public function hasFriendRequestPending(User $user)
@@ -227,9 +228,9 @@ class User extends Model implements AuthenticatableContract
     /**
      * Checks to see if a specified user has any friend requests recieved
      *
-     * Using the count of friendRequestsPending(), where the users id is present, if it
-     * is 1, then it returns true, else returns false
+     * Using the friendRequests(), where the users id is present
      *
+     * @param $user - User model
      * @return boolean
      */
     public function hasFriendRequestReceived(User $user)
@@ -237,11 +238,29 @@ class User extends Model implements AuthenticatableContract
         return (bool) $this->friendRequests()->where('id', $user->id)->count();
     }
 
+    /**
+     * Add a friendship in the database
+     *
+     * Makes a new friendsOf() instance beween the logged in user and
+     * specified user
+     *
+     * @param $user - User model
+     * @return none
+     */
     public function addFriend(User $user)
     {
         $this->friendsOf()->attach($user->id);
     }
 
+    /**
+     * Deletes a friendship in the database
+     *
+     * Does a few checks to make sure that there is a user present and that you
+     * Two are friends, and then detaches the friendship.
+     *
+     * @param $user - User model
+     * @return none
+     */
     public function removeFriend(User $user)
     {
         if (!Auth::user()->isFriendsWith($user)) {
@@ -256,6 +275,15 @@ class User extends Model implements AuthenticatableContract
         $this->friendsOfMine()->detach($user->id);
     }
 
+    /**
+     * Accepts a friend request
+     *
+     * Using the friendRequests(), where the users id is selected, take the pivot and
+     * Update the 'accepted' row to a 1 or 'true'
+     *
+     * @param $user - User model
+     * @return none
+     */
     public function acceptFriendRequest(User $user)
     {
         $this->friendRequests()->where('id', $user->id)->first()->pivot->update([
@@ -263,31 +291,76 @@ class User extends Model implements AuthenticatableContract
         ]);
     }
 
+    /**
+     * Checks to see if the current user is friends with a specified user
+     *
+     * Using the friends() function, it counts the records of frienships between
+     * the currently logged in user to a specified user, it then converts that to
+     * a boolean.
+     *
+     * @param $user - User model
+     * @return boolean
+     */
     public function isFriendsWith(User $user)
     {
         return (bool) $this->friends()->where('id', $user->id)->count();
     }
 
+    /**
+     * Checks to see if a specified user has any friend requests recieved
+     *
+     * Using the friendRequests(), where the users id is present
+     *
+     * @param $status - Status Model
+     * @return boolean
+     */
     public function hasLikedStatus(Status $status)
     {
         return (bool) $status->likes()->where('user_id', $this->id)->count();
     }
 
+    /**
+     * A simple way to check if the user is an administrator
+     *
+     * USAGE:
+     * if ($user->admin)
+     * It will return true if the user is an administrator
+     *
+     * @return boolean
+     */
     public function getAdminAttribute()
     {
         return $this->position === 'admin';
     }
 
+    /**
+     * Check if the user has a ceratin position
+     *
+     * It checks if the passed position is equal to the users position row
+     * In the database.
+     *
+     * Example use:
+     * if ($user->hasPosition('mod'))
+     * It will return true if the user is a moderator
+     *
+     * @param $position
+     * @return boolean
+     */
     public function hasPosition($position = null)
     {
         $position = is_array($position) ? $position : func_get_args();
 
         return in_array($this->position, $position);
-
-        // EXAMPLE USE:
-        // $user->hasPosition('mod');
     }
 
+    /**
+     * Reloads the users 'last_activity' row
+     *
+     * Updates the users 'last_activity' row to the current time, minus the
+     * 5 hours is optional, because the hosting server is 5 hours ahead.
+     *
+     * @return none
+     */
     public function reloadActivityTime()
     {
         $current_time = Carbon::now()->subHours(5);

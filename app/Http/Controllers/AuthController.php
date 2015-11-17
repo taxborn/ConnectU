@@ -61,9 +61,9 @@ class AuthController extends Controller
     	$request->merge([$field => $request->input('email')]);
 
 		if(!Auth::attempt($request->only([$field, 'password']), $request->has('remember'))) {
-			notify()->flash('Warning!', 'danger', [
-				'timer' => 4000,
-				'text'  => 'We could not sign you in with those details. Try again.',
+			notify()->flash('Mismatch on our end', 'error', [
+				'timer' => 2000,
+				'text'  => 'It seems as though we cannot verify your login. Try again',
 			]);
 
 			# Return back with the message that they could not be signed in.

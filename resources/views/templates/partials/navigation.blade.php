@@ -9,7 +9,7 @@
                     <li><a href="{{ route('profile.edit', ['username' => Auth::user()->username]) }}">Edit Profile</a></li>
                     @if (Auth::user()->hasPosition('admin'))
                         <li><a href="{{ route('admin.home') }}">Administrator Dashboard</a></li>
-                    @elseif (Auth::user()->hasPosition('admin'))
+                    @elseif (Auth::user()->hasPosition('mod'))
                         <li><a href="{{ route('moderator.home') }}">Moderator Dashboard</a></li>
                     @elseif (Auth::user()->hasPosition('helper'))
                         <li><a href="{{ route('helper.home') }}">Helper Dashboard</a></li>

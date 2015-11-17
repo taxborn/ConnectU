@@ -101,7 +101,7 @@ class User extends Model implements AuthenticatableContract
     public function getFirstNameOrUsername()
     {
         return $this->first_name ?: $this->username;
-
+    }
     /**
      * Grabs the users gravatar image
      *

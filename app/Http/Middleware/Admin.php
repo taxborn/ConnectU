@@ -36,7 +36,7 @@ class Admin
     public function handle($request, Closure $next)
     {
         # Checks to see if the current user is an administrator
-        if (!Auth::user()->isAdmin(Auth::user())) {
+        if (!Auth::user()->hasPosition('admin')) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {

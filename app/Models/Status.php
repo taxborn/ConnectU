@@ -44,7 +44,7 @@ class Status extends Model
      */
     public function scopeNotReply($query)
     {
-        return $query->whereNull('parent_id')->where('deleted', 0);
+        return $query->whereNull('parent_id');
     }
 
     /**
@@ -57,7 +57,7 @@ class Status extends Model
      */
     public function replies()
     {
-        return $this->hasMany('ConnectU\Models\Status', 'parent_id')->where('deleted', 0);
+        return $this->hasMany('ConnectU\Models\Status', 'parent_id');
     }
 
     /**

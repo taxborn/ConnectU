@@ -6,11 +6,11 @@
         <h4 class="media-heading"><a href="{{ route('profile.index', ['username' => $user->username]) }}">{{ $user->getNameOrUsername() }}
 		</a>
 		</h4>
-		@if ($user->isAdmin($user))
+		@if ($user->hasPosition('admin'))
 			<span class="label label-danger" style="position: absolute;">Administrator</span>
-		@elseif ($user->isMod($user))
+		@elseif ($user->hasPosition('mod'))
 			<span class="label label-info" style="position: absolute;">Moderator</span>
-		@elseif ($user->isHelper($user))
+		@elseif ($user->hasPosition('helper'))
 			<span class="label label-success" style="position: absolute;">Helper</span>
 		@endif
     </div>

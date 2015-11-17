@@ -5,7 +5,7 @@
 <meta name="robots" content="index,follow">
 <meta name="google-site-verification" content="Avw79w4uSPhnHN2oUTMIwAcS5_ZsuiufTvKPJ2pq30U" />
 <!-- Compiled and minified CSS for Materialize CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
 <!-- Font Awesome -->
 <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <!-- Google Material Icons -->

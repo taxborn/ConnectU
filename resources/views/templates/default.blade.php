@@ -4,8 +4,15 @@
 		@include('templates.partials.meta')
 		<title>ConnectU | @yield('title')</title>
 		<style>
-			.label-pink {
-				background-color: #e9a3a3;
+			.parallax-container {
+				height: 96vh;
+			}
+
+			hr {
+			    border: 0;
+			    height: 1px;
+			    background: #333;
+			    background-image: linear-gradient(to right, #f1f1f1, #ececec, #f1f1f1);
 			}
 		</style>
 	</head>

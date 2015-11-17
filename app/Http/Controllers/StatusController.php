@@ -117,11 +117,14 @@ class StatusController extends Controller
         }
 
         # Check if the logged in user is an moderator or an administrator, they have control too
-        if (Auth::user()->isModAndUp(Auth::user())) {
+        if (Auth::user()->hasPosition('mod', 'admin') || Auth::user()->id === $status->user_id) {
             # Select the status and delete it
-            DB::table('statuses')->where('id', $status->id)->update([
-                'deleted' => 1,
-            ]);
+            if ($status->parent_id !== NULL) {
+                DB::table('statuses')->where('parent_id', $status->parent_id)->delete();
+            } else {
+                DB::table('statuses')->where('id', $status->id)->delete();
+            }
+
 
             # Relaod the users last_activity time
             Auth::user()->reloadActivityTime();
@@ -145,9 +148,7 @@ class StatusController extends Controller
         }
 
         # Delete the status
-        DB::table('statuses')->where('id', $status->id)->update([
-            'deleted' => 1,
-        ]);
+        DB::table('statuses')->where('id', $status->id)->delete();
 
         # Reload the users last_activity time
         Auth::user()->reloadActivityTime();
@@ -180,17 +181,8 @@ class StatusController extends Controller
             return redirect()->back();
         }
 
-        if ($status->deleted === 1) {
-            notify()->flash('Where did you find this?', 'warning', [
-                'timer' => 4500,
-                'text'  => 'That status was not found. How did you get here?',
-            ]);
-
-            return redirect()->back();
-        }
-
         # Check if the user is a moderator and up
-        if (Auth::user()->isModAndUp(Auth::user())) {
+        if (Auth::user()->hasPosition('mod', 'admin')) {
             return view('status.edit')->with('status', $status); # Goto the status edit route with $status
         }
 
@@ -226,7 +218,7 @@ class StatusController extends Controller
 		if($status->user_id !== Auth::user()->id)
 		{
             # Check if the user is a moderator or an administrator
-			if(Auth::user()->isModAndUp(Auth::user())) {
+			if(Auth::user()->hasPosition('mod', 'admin')) {
                 # Update the status
 				DB::table('statuses')->where('id', $statusId)->update([
 					'body'       => $request->input('status'),

@@ -36,7 +36,7 @@ class Moderator
     public function handle($request, Closure $next)
     {
         # Checks to see if the current user is a moderator or an administrator
-        if (!Auth::user()->isModAndUp(Auth::user())) {
+        if (!Auth::user()->hasPosition('mod', 'admin')) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {

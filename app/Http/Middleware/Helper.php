@@ -36,7 +36,7 @@ class Helper
     public function handle($request, Closure $next)
     {
         # Checks to see if the current user is staff
-        if (!Auth::user()->isStaff(Auth::user())) {
+        if (!Auth::user()->position) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {

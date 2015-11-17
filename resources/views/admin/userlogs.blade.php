@@ -24,9 +24,6 @@
 				Post Body
 			</th>
 			<th>
-				Is Deleted?
-			</th>
-			<th>
 				Created At
 			</th>
 			<th>
@@ -57,13 +54,6 @@
 				</td>
 				<td>
 					{!! $status->body !!}
-				</td>
-				<td>
-					@if($status->deleted === 1)
-						<p>Yes</p>
-					@else
-						<p>No</p>
-					@endif
 				</td>
 				<td>
 					{{ $status->created_at }}

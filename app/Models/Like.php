@@ -13,15 +13,23 @@ class Like extends Model
      */
     protected $table = 'likeable';
 
+    /**
+     * Morphs something to be likeable
+     *
+     * @return void
+     */
     public function likeable()
     {
-        # Make something likeable
         return $this->morphTo();
     }
 
+    /**
+     * Makes sure that a user is making a like instance
+     *
+     * @return none
+     */
     public function user()
     {
-        # Make sure that a USER is making the like instance
         return $this->belongsTo('ConnectU\Models\User', 'user_id');
     }
 }

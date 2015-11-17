@@ -128,12 +128,12 @@ class ProfileController extends Controller
         return view('profile.password'); # Return the profile edit password view
     }
 
-    public function postEditUserPassword(Request $requeset)
+    public function postEditPassword(Request $request)
     {
-        $isPasswordCorrect = password_verify($request->input('oldpassword'));
+        $isPasswordCorrect = password_verify($request->input('oldpassword'), Auth::user()->password);
 
         # Make sure the user has typed in all the fields
-        $this->validate([
+        $this->validate($request, [
             'oldpassword'  => 'required',
             'newpassword'  => 'required',
             'newpassword2' => ' required|same:newpassword',

@@ -11,7 +11,7 @@
 		<div class="col s12 m8 l6">
 			<form action="{{ route('profile.edit') }}" method="post">
 				<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field col s12 m6 l6">
 						<i class="material-icons prefix" style="margin-top: 10px;">account_circle</i>
 						<input placeholder="Last Name" id="icon_prefix last_name" type="text" value="{{ Request::old('first_name') ?: Auth::user()->first_name }}" name="first_name">
 						<label for="icon_prefix">First Name</label>
@@ -19,7 +19,7 @@
 							<span class="help-block">{{ $errors->first('first_name') }}</span>
 						@endif
 					</div>
-					<div class="input-field col s6">
+					<div class="input-field col s12 m6 l6">
 						<i class="material-icons prefix" style="margin-top: 10px;">account_circle</i>
 						<input placeholder="Last Name" id="icon_prefix last_name" type="text" value="{{ Request::old('last_name') ?: Auth::user()->last_name }}" name="last_name">
 						<label for="icon_prefix">Last Name</label>
@@ -29,7 +29,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field col s12 m6 l6">
 						<i class="material-icons prefix" style="margin-top: 10px;">assignment_ind</i>
 						<input placeholder="Username" id="icon_prefix username" type="text" value="{{ Request::old('username') ?: Auth::user()->username }}" name="username">
 						<label for="icon_prefix">Username</label>
@@ -37,7 +37,7 @@
 							<span class="help-block">{{ $errors->first('username') }}</span>
 						@endif
 					</div>
-					<div class="input-field col s6">
+					<div class="input-field col s12 m6 l6">
 						<i class="material-icons prefix" style="margin-top: 10px;">email</i>
 						<input placeholder="Email" id="icon_prefix email" type="text" value="{{ Request::old('email') ?: Auth::user()->email }}" name="email">
 						<label for="icon_prefix">Email</label>
@@ -47,7 +47,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field col s12 m6 l6">
 						<i class="material-icons prefix" style="margin-top: 10px;">location_on</i>
 						<input placeholder="Location" id="icon_prefix location" type="text" value="{{ Request::old('location') ?: Auth::user()->location }}" name="location">
 						<label for="icon_prefix">Location</label>
@@ -55,7 +55,7 @@
 							<span class="help-block">{{ $errors->first('location') }}</span>
 						@endif
 					</div>
-					<div class="input-field col s6">
+					<div class="input-field col s12 m6 l6">
 						<select name="sex">
 							<option value="not-specified" disabled selected>{{ Auth::user()->sex !== NULL ? ucwords(Auth::user()->sex) : 'Choose your gender.' }}</option>
 							<option value="male">Male</option>

@@ -119,12 +119,7 @@ class StatusController extends Controller
         # Check if the logged in user is an moderator or an administrator, they have control too
         if (Auth::user()->hasPosition('mod', 'admin') || Auth::user()->id === $status->user_id) {
             # Select the status and delete it
-            if ($status->parent_id !== NULL) {
-                DB::table('statuses')->where('parent_id', $status->parent_id)->delete();
-            } else {
-                DB::table('statuses')->where('id', $status->id)->delete();
-            }
-
+            DB::table('statuses')->where('id', $status->id)->delete();
 
             # Relaod the users last_activity time
             Auth::user()->reloadActivityTime();

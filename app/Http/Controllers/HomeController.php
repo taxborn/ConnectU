@@ -24,12 +24,8 @@ class HomeController extends Controller
 
     public function guide()
     {
-        $project_start = Carbon::createFromDate(2015, 12, 15);
-        $current_time = Carbon::now();
 
-        $difference = $project_start->diffInDays($current_time);
-
-        return view('guidelines')->with('difference', $difference); # Return the guidelines view
+        return view('guidelines'); # Return the guidelines view
     }
 
     public function publicHandler()

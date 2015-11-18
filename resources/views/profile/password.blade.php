@@ -26,7 +26,7 @@
 				</div>
 				<div class="col s12">
 					<div class="input-field col s12">
-						<i class="material-icons prefix" style="margin-top: 10px;">build</i>
+						<i class="material-icons prefix" style="margin-top: 10px;">fingerprint</i>
 						<input placeholder="Your New Password" id="icon_prefix newpassword" type="password" name="newpassword">
 						<label for="icon_prefix">New password</label>
 						@if ($errors->has('newpassword'))
@@ -36,7 +36,7 @@
 				</div>
 				<div class="col s12">
 					<div class="input-field col s12">
-						<i class="material-icons prefix" style="margin-top: 10px;">build</i>
+						<i class="material-icons prefix" style="margin-top: 10px;">save</i>
 						<input placeholder="Your New Password(again)" id="icon_prefix newpassword" type="password" name="newpassword2">
 						<label for="icon_prefix">New password(again)</label>
 						@if ($errors->has('newpassword2'))
@@ -45,7 +45,11 @@
 					</div>
 				</div>
 				<div class="col s12">
-					<button class="btn waves-effect waves-light center col s12 indigo darken-2" type="submit" name="action">Submit
+					<br>
+					<div class="col s3">
+						&nbsp;
+					</div>
+					<button class="btn waves-effect waves-light center col s6 indigo darken-2" type="submit" name="action">Submit
 						<i class="material-icons right">send</i>
 					</button>
 				</div>
@@ -53,5 +57,4 @@
 			</form>
 		</div>
 	</div>
-	<br>
 @stop

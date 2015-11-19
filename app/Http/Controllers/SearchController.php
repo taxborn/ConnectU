@@ -2,13 +2,18 @@
 
 namespace ConnectU\Http\Controllers;
 
-use Auth;
 use DB;
+use Auth;
 use ConnectU\Models\User;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
+	public function getIndex()
+	{
+		return view('search.index');
+	}
+
 	public function getResults(Request $request)
 	{
 		$query = $request->input('query'); # Get the user input query

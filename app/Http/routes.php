@@ -80,9 +80,15 @@ Route::get('/signout', [
 ]);
 
 # Search route as search.results
-Route::get('/search', [
+Route::get('/results', [
 	'uses'       => '\ConnectU\Http\Controllers\SearchController@getResults',
 	'as'         => 'search.results',
+	'middleware' => ['auth'],
+]);
+
+Route::get('/search', [
+	'uses'       => '\ConnectU\Http\Controllers\SearchController@getIndex',
+	'as'         => 'search.index',
 	'middleware' => ['auth'],
 ]);
 

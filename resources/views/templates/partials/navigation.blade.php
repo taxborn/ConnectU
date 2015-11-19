@@ -4,7 +4,7 @@
             <a href="{{ route('home') }}" class="brand-logo">&nbsp;ConnectU</a>
             <ul class="right hide-on-med-and-down">
                 @if (Auth::check())
-                    <li><a href="#!">Search</a></li>
+                    <li><a href="{{ route('search.index') }}">Search</a></li>
                     <li><a href="{{ route('profile.index', ['username' => Auth::user()->username]) }}">Profile</a></li>
                     <li><a href="{{ route('profile.edit', ['username' => Auth::user()->username]) }}">Edit Profile</a></li>
                     @if (Auth::user()->hasPosition('admin'))
@@ -22,7 +22,7 @@
             </ul>
             <ul id="slide-out" class="side-nav">
                 @if (Auth::check())
-                    <li><a href="#!">Search</a></li>
+                    <li><a href="{{ route('search.index') }}">Search</a></li>
                     <li><a href="{{ route('profile.index', ['username' => Auth::user()->username]) }}">Profile</a></li>
                     <li><a href="{{ route('profile.edit', ['username' => Auth::user()->username]) }}">Edit Profile</a></li>
                     @if (Auth::user()->hasPosition('admin'))

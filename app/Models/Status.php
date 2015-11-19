@@ -38,7 +38,7 @@ class Status extends Model
     /**
      * Gets every status that is not a reply
      *
-     * Checks to see that the 'parent_id' is NULL and that the status is not deleted
+     * Checks to see that the 'parent_id' is NULL (That means that it is not a reply)
      *
      * @return void
      */
@@ -51,7 +51,7 @@ class Status extends Model
      * Gets all statuses that are replies
      *
      * Gets the statuses that are replies and that parent_id is not NULL using
-     * a hasMany relationship and that the status is not deleted.
+     * a hasMany relationship
      *
      * @return void
      */

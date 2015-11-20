@@ -148,7 +148,9 @@ class StatusController extends Controller
         }
 
         # Delete the status
+        DB::table('likeable')->where('likeable_id', $status->id)->first()->delete();
         DB::table('statuses')->where('id', $status->id)->delete();
+
 
         # Reload the users last_activity time
         Auth::user()->reloadActivityTime();

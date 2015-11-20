@@ -125,6 +125,7 @@ class StatusController extends Controller
         if (Auth::user()->hasPosition('mod', 'admin') || Auth::user()->id === $status->user_id) {
             # Select the status and delete it
             DB::table('statuses')->where('id', $status->id)->delete();
+            DB::table('likeable')->where('likeable_id', $status->id)->where('likeable_type', $status->getMorphClass())->delete();
 
             # Relaod the users last_activity time
             Auth::user()->reloadActivityTime();
@@ -148,9 +149,8 @@ class StatusController extends Controller
         }
 
         # Delete the status
-        DB::table('likeable')->where('likeable_id', $status->id)->first()->delete();
         DB::table('statuses')->where('id', $status->id)->delete();
-
+        DB::table('likeable')->where('likeable_id', $status->id)->where('likeable_type', $status->getMorphClass())->delete();
 
         # Reload the users last_activity time
         Auth::user()->reloadActivityTime();

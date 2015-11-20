@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('location')->nullable();
             $table->string('biograhpy')->nullable();
             $table->string('sex');
+            $table->boolean('verified');
             $table->string('position')->nullable();
             $table->string('ip')->nullable();
             $table->timestamp('last_activity');

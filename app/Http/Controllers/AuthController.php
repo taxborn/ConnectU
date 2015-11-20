@@ -24,7 +24,7 @@ class AuthController extends Controller
 			'password' => 'required|min:6',
 		]);
 
-		$current_time = Carbon::now()->subHours(5);
+		$current_time = Carbon::now();
 
 		# Create the user
 		User::create([
@@ -74,7 +74,7 @@ class AuthController extends Controller
 		}
 
         # Get the current time and assign it to the variable $current_time
-		$current_time = Carbon::now()->subHours(5);
+		$current_time = Carbon::now();
 
 		Auth::user()->update([
 			'ip'         => $_SERVER['REMOTE_ADDR'], # Get the current IP and put it on the user

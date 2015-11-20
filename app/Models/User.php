@@ -42,6 +42,7 @@ class User extends Model implements AuthenticatableContract
         'location',
         'biography',
         'sex',
+        'verified',
         'position',
         'last_activity',
         'ip',
@@ -363,10 +364,15 @@ class User extends Model implements AuthenticatableContract
      */
     public function reloadActivityTime()
     {
-        $current_time = Carbon::now()->subHours(5);
+        $current_time = Carbon::now();
 
         $this->update([
             'last_activity' => $current_time,
         ]);
+    }
+
+    public function isVerified()
+    {
+        return (bool) $this->verified;
     }
 }

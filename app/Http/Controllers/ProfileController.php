@@ -89,10 +89,10 @@ class ProfileController extends Controller
     public function postDelete(Request $request)
     {
         # Use password_verify() to see if the users password is the same as in the database
-        $isPasswordCorrect = password_verify($request->input('password'));
+        $isPasswordCorrect = password_verify($request->input('password'), Auth::user()->password);
 
         # Make sure the user supplied a password
-        $this->validate([
+        $this->validate($request, [
             'password' => 'required'
         ]);
 

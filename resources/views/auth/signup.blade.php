@@ -1,7 +1,7 @@
 @extends('templates.default')
 
 @section('title')
-	Signup
+	Sign up
 @stop
 
 @section('content')
@@ -39,7 +39,7 @@
 					<p class="center">
 						By signing up to ConnectU, you agree to the <a href="{{ route('guidelines') }}">Terms of Service</a>.
 					</p>
-					<button type="submit" class="waves-effect waves-light btn btn-large indigo darken-1">Signup</button>
+					<button type="submit" class="waves-effect waves-light btn btn-large indigo darken-1">Sign up</button>
 					<input type="hidden" name="_token" value="{{ Session::token() }}">
 				</div>
 			</form>

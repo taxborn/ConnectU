@@ -100,6 +100,11 @@ class StatusController extends Controller
         $like = $status->likes()->create([]);
         Auth::user()->likes()->save($like);
 
+        notify()->flash('Liked!', 'success', [
+            'timer' => 4500,
+            'text'  => 'You have liked a status!',
+        ]);
+
         # Relaod the users last_activity time
         Auth::user()->reloadActivityTime();
 

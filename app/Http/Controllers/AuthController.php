@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
 	public function getSignup()
 	{
-		return view('auth.signup'); # Returns the signup view: /resources/views/auth/signup.blade.php
+		return view('auth.signup'); # Returns the sign up view: /resources/views/auth/signup.blade.php
 	}
 
 	public function postSignup(Request $request)
@@ -24,12 +24,15 @@ class AuthController extends Controller
 			'password' => 'required|min:6',
 		]);
 
+		$current_time = Carbon::now()->subHours(5);
+
 		# Create the user
 		User::create([
 			'email'    => $request->input('email'), # User email
 			'username' => strtolower($request->input('username')), # User username
 			'ip'       => $_SERVER['REMOTE_ADDR'], # User IP
 			'password' => bcrypt($request->input('password')), # User password encrypted in Bcrypt
+			'last_activity' => $current_time, # Update the users last activity
 		]);
 
 		# Redirect to the home page with the message that their account has been created and they can log in
@@ -45,7 +48,7 @@ class AuthController extends Controller
 
 	public function getSignin()
 	{
-		return view('auth.signin'); # Returns the sign in view: /resources/views/auth/signin.blade.php
+			return view('auth.signin'); # Returns the sign in view: /resources/views/auth/signin.blade.php
 	}
 
 	public function postSignin(Request $request)

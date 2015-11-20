@@ -1,7 +1,7 @@
 @extends('templates.default')
 
 @section('title')
-	Signin
+	Sign in
 @stop
 
 @section('content')

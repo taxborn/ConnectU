@@ -47,7 +47,16 @@
 				</div>
 			</div>
 			@if (!$statuses->count())
-				<p>There is nothing in your timeline, yet.</p>
+				<h6 class="center">There is nothing in your timeline, yet. Make some friends or post something!</h6>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
 			@else
 				@foreach($statuses as $status)
 						<div class="col s12 m12 l12">

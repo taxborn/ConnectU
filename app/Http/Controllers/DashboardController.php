@@ -24,11 +24,21 @@ class DashboardController extends Controller
         # Get the user where the username row is equal to $username and get the first(and only) result
         $user = User::where('username', $username)->first();
 
+        if ($user->id === Auth::user()->id) {
+            notify()->flash('You cannot delete yourself', 'error', [
+    			'timer' => 4000,
+                'text' => 'Now why did you try and do that?',
+    		]);
+
+            return redirect()->back();
+        }
+
         # Delete the user where the username row is equal to $username
         DB::table('users')->where('username', $username)->delete();
 
         # Reload the users last_activity time
         Auth::user()->reloadActivityTime();
+
 
         notify()->flash($user->getNameOrUsername() . '\'s Account has been deleted', 'success', [
 			'timer' => 4000,
@@ -66,7 +76,7 @@ class DashboardController extends Controller
             'last_name' => $request->input('last_name'),
             'username' => $request->input('username'),
             'email' => $request->input('email'),
-            'sex' => $request->input('gender'),
+            'sex' => $request->input('sex'),
             'location' => $request->input('location'),
             'biography' => $request->input('biography'),
         ]);
@@ -171,8 +181,9 @@ class DashboardController extends Controller
                 'position' => 'helper',
             ]);
 
-            notify()->flash($user->getNameOrUsername() . 'is now a helper!', 'success', [
+            notify()->flash($user->getNameOrUsername() . ' is now a helper!', 'success', [
     			'timer' => 4000,
+                'text' => 'Welcome to the team!'
     		]);
 
             return redirect()->back(); # Redirect back

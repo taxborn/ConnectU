@@ -36,7 +36,7 @@ class AuthController extends Controller
 
 		notify()->flash('Welcome to ConnectU!', 'success', [
 			'timer' => 6000,
-			'text'  => 'Your account has been created! Signin and see what ConnectU has to offer!',
+			'text'  => 'Your account has been created! Sign in and see what ConnectU has to offer!',
 		]);
 
 		return redirect()
@@ -45,7 +45,7 @@ class AuthController extends Controller
 
 	public function getSignin()
 	{
-		return view('auth.signin'); # Returns the signin view: /resources/views/auth/signin.blade.php
+		return view('auth.signin'); # Returns the sign in view: /resources/views/auth/signin.blade.php
 	}
 
 	public function postSignin(Request $request)

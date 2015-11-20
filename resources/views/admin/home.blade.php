@@ -9,13 +9,15 @@
 @stop
 
 @section('content')
-	<h3>Admin Panel</h3>
-	<a href="{{ route('metrics') }}">Metrics</a>
+	<h3 class="center">Admin Panel</h3>
 	<br>
 
 		<div class="row">
-			<div class="col s12">
-				<table class="highlight">
+			<div class="col l1">
+				&nbsp;
+			</div>
+			<div class="col s12 l10">
+				<table class="highlight bordered">
 					<thead>
 						<tr>
 							<th data-field="id">
@@ -81,7 +83,11 @@
 									<a href="{{ route('admin.edituser', ['username' => $user->username]) }}" class="btn indigo"><i class="material-icons">build</i></a>
 								</td>
 								<td>
-									<a href="{{ route('admin.delete.user', ['username' => $user->username]) }}" class="btn indigo"><i class="material-icons">gavel</i></a>
+									@if ($user->id !== Auth::user()->id)
+										<a href="{{ route('admin.delete.user', ['username' => $user->username]) }}" class="btn indigo"><i class="material-icons">gavel</i></a>
+									@else
+										<a class="btn indigo disabled" disabled><i class="material-icons">gavel</i></a>
+									@endif
 								</td>
 							</tr>
 						@endforeach
